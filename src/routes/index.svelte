@@ -2,10 +2,7 @@
 	export const prerender = true;
     export async function load({ page, fetch }) {
         const res = await fetch('http://localhost:3000/xhr/popular', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            method: 'GET'
         });
         if (res.ok) {
             return {
@@ -32,7 +29,7 @@
 </svelte:head>
 
 <section>
-	<h1>Online Dress Store Homepage</h1>
+	<h1>Online Dress Store</h1>
     <Popular items={popularItems}/>
 </section>
 <style>

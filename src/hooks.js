@@ -12,7 +12,6 @@ import { reset } from './store';
 
 export const handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
-    console.log('>> request cookies:', cookies);
 	request.locals.userid = cookies.userid || uuid();
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
@@ -40,14 +39,6 @@ export function getSession(request) {
             credential: admin.credential.applicationDefault()
         });
         firebase.initializeApp(config);
-        firebase.auth().onIdTokenChanged(async (user) => {
-            if (!user) {
-                // update cookie & store
-            } else {
-                const token = await user.getIdToken();
-                // update cookie & store
-            }
-        });
     }
 
     return {

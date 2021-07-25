@@ -1,5 +1,6 @@
 <script>
     import { page } from '$app/stores';
+    export let isUserLoggedIn;
     const navData = [
         {
             url: '/',
@@ -10,6 +11,12 @@
             label: 'About'
         }
     ];
+    if (isUserLoggedIn) {
+        navData.push({
+            url: '/addProduct',
+            label: 'Add Product'
+        });
+    }
 </script>
 <nav>
     <ul>
