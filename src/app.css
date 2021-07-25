@@ -130,6 +130,9 @@ body[theme="dark"] {
 	display: flex;
 	flex-direction: column;
 }
+button {
+    cursor: pointer;
+}
 
 /* h1,
 h2,

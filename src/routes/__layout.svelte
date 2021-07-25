@@ -1,6 +1,23 @@
+<script context="module">
+    // export async function load({ page, fetch }) {
+    //     if (typeof window === 'undefined') {
+
+    //     }
+    // }
+</script>
 <script>
 	import Header from '../components/Header.svelte';
 	import '../app.css';
+    import { onMount } from "svelte";
+    import { getStore } from '../store';
+    onMount(() => {
+        firebase.auth().onAuthStateChanged((user) => {
+            getStore('auth').set({
+                isLoggedIn: user !== null,
+                user
+            });
+        });
+    });
 </script>
 
 <Header />
