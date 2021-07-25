@@ -27,6 +27,8 @@
                 displayName: firstName.value + ' ' + lastName.value,
                 phoneNumber: phone.value
             });
+            // Send email verification
+            firebase.auth().currentUser.sendEmailVerification(); // we don't need to wait for this operation hence no await
             handleClose();
         } catch (ex) {
             isLoading = false;
@@ -39,7 +41,15 @@
     function showRegister() {
         isRegistering = true;
     }
-    
+    async function resetPassword() {
+        try {
+            const email = document.getElementById('loginForm').querySelector('input[name="email"]').value;
+            if (email) {
+                await firebase.auth().sendPasswordResetEmail(email);
+            }
+        } catch (ex) {}
+    }
+
     function handleClose(e) {
         isRegistering = false;
         isLoading = false;
@@ -69,13 +79,13 @@
         {/if}
     {:else}
         <h2>Log In</h2>
-        <form on:submit={onLogin}>
+        <form on:submit={onLogin} id="loginForm">
             <label><span class="text">Email id:</span><input type="text" name="email"/></label>
             <label><span class="text">Password:</span><input type="password" name="password" /></label>
             <button type="submit">{isLoading ? 'Logging in...' : 'Login'}</button>
         </form>
         <button on:click={showRegister}>Create a new account</button>
-        <button>Forgot password</button>
+        <button on:click={resetPassword}>Reset password</button>
         {#if hasLoginError}
             <p class="errorMsg">Some Error happened while logging in, please try again</p>
         {/if}
