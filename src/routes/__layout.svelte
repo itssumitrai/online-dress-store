@@ -1,3 +1,10 @@
+<script context="module">
+    // export async function load({ page, fetch }) {
+    //     if (typeof window === 'undefined') {
+
+    //     }
+    // }
+</script>
 <script>
 	import Header from '../components/Header.svelte';
 	import '../app.css';
