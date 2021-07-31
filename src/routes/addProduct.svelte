@@ -3,10 +3,41 @@
     function addAdditionalImage() {
         additionalImages = [...additionalImages, true];
     }
+    async function onSubmit(e) {
+        e.preventDefault();
+        const db = firebase.firestore();
+        try {
+            const formData = new FormData(e.currentTarget);
+            const document = {};
+            for (const pair of formData) {
+                document[pair[0]] = pair[1];
+            }
+            await db.collection('products').add(document);
+            console.log('> Data written succesfully!');
+        } catch (ex) {
+            console.error(ex);
+        }
+    }
+    async function onChange(e) {
+        const { target } = e;
+        if (target.getAttribute('type') === 'file') {
+            const { files } = target;
+            const [file] = files;
+            const storageRef = firebase.storage().ref();
+            const fileRef = storageRef.child(file.name);
+            try {
+                await fileRef.put(file);
+                const fileUrl = await fileRef.getDownloadURL();
+                console.log('>> Image succesfully uploaded:', fileUrl);
+            } catch (ex) {
+                console.error(ex);
+            }
+        }
+    }
 </script>
 <section>
     <h1>Add Product</h1>
-    <form>
+    <form on:submit={onSubmit} on:change={onChange} method="POST">
         <fieldset>
             <h2>Basic</h2>
             <label><span>SKU:</span><input type="text" name="sku"></label>
@@ -22,9 +53,9 @@
                 </select>
             </label>
             <label><span>Colors (seperate with comma for multiple):</span><input type="text" name="color"></label>
-            <label><span>Image Url:</span><input type="url" name="imageUrl"></label>
+            <label><span>Image:</span><input type="file" name="image"></label>
             {#each additionalImages as image, i}
-                <label><span>Image {i + 1} Url:</span><input type="url" name={`image${i + 1}Url`}></label>
+                <label><span>Image {i + 1} Url:</span><input type="file" name={`image${i + 1}`}></label>
             {/each}
             <button type="button" on:click={addAdditionalImage}>Add another image</button>
         </fieldset>
@@ -73,7 +104,11 @@
                 </select>
             </label>
             <label><span>Availability date:</span><input type="date" name="availabilityDate"></label>
+            <label><span>Shipping cost:</span><input type="number" name="shippingCost" placeholder="0"></label>
+            <label><span>Tax:</span><input type="number" name="tax" placeholder="0"></label>
+            <label><span>Tax Category:</span><input type="text" name="taxCategory" placeholder="Apparel"></label>
         </fieldset>
+        <button>Submit</button>
     </form>
 </section>
 <style>
@@ -87,5 +122,8 @@
     }
     fieldset {
         text-align: center;
+    }
+    button {
+        margin: auto;
     }
 </style>
