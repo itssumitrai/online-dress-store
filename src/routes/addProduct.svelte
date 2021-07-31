@@ -3,6 +3,7 @@
     function addAdditionalImage() {
         additionalImages = [...additionalImages, true];
     }
+    let imageUrls = [];
     async function onSubmit(e) {
         e.preventDefault();
         const db = firebase.firestore();
@@ -10,8 +11,14 @@
             const formData = new FormData(e.currentTarget);
             const document = {};
             for (const pair of formData) {
-                document[pair[0]] = pair[1];
+                if (typeof pair[1] !== 'object') {
+                    document[pair[0]] = pair[1];
+                }
             }
+            imageUrls.forEach((image, index) => {
+                document[`image${index === 0 ? '' : index}`] = image;
+            });
+
             await db.collection('products').add(document);
             console.log('> Data written succesfully!');
         } catch (ex) {
@@ -28,6 +35,7 @@
             try {
                 await fileRef.put(file);
                 const fileUrl = await fileRef.getDownloadURL();
+                imageUrls[Number(target.getAttribute('index'))] = fileUrl;
                 console.log('>> Image succesfully uploaded:', fileUrl);
             } catch (ex) {
                 console.error(ex);
@@ -53,9 +61,9 @@
                 </select>
             </label>
             <label><span>Colors (seperate with comma for multiple):</span><input type="text" name="color"></label>
-            <label><span>Image:</span><input type="file" name="image"></label>
+            <label><span>Image:</span><input type="file" name="image" index="0"></label>
             {#each additionalImages as image, i}
-                <label><span>Image {i + 1} Url:</span><input type="file" name={`image${i + 1}`}></label>
+                <label><span>Image {i + 1} Url:</span><input type="file" name={`image${i + 1}`} index={i + 1}></label>
             {/each}
             <button type="button" on:click={addAdditionalImage}>Add another image</button>
         </fieldset>
