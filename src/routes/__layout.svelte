@@ -1,9 +1,4 @@
 <script context="module">
-    // export async function load({ page, fetch }) {
-    //     if (typeof window === 'undefined') {
-
-    //     }
-    // }
 </script>
 <script>
 	import Header from '../components/Header.svelte';
@@ -47,10 +42,6 @@
 		justify-content: center;
 		align-items: center;
 		padding: 0.5rem;
-	}
-
-	footer a {
-		font-weight: bold;
 	}
 
 	@media (min-width: 480px) {

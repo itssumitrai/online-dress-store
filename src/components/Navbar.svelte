@@ -33,6 +33,13 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
+        height: 100%;
+    }
+    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     nav {
         width: 100%;

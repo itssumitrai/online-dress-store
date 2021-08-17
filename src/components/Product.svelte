@@ -2,7 +2,9 @@
     export let item;
 </script>
 <section>
-    <img class="mainImage" alt={item.title} src={item.image} loading="lazy" />
+    <div class="imgContainer">
+        <img class="mainImage" alt={item.title} src={item.image} loading="lazy" />
+    </div>
     <div class="productDetail">
         <h3>{item.title}</h3>
         <p class="desc">{item.description}</p>
@@ -14,12 +16,11 @@
 <style>
     .mainImage {
         width: 100%;
-        min-width: 250px;
-        min-height: 300px;
     }
     section {
         position: relative;
         z-index: 1;
+        padding: 0.5rem;
         max-width: 250px;
     }
     .productLink {
@@ -29,5 +30,12 @@
         top: 0;
         left: 0;
         z-index: 2;
+    }
+    .imgContainer {
+        min-width: 250px;
+        min-height: 350px;
+    }
+    .productLink:hover,.productLink:focus-visible {
+        border: 1px solid var(--link-active);
     }
 </style>

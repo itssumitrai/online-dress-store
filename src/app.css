@@ -33,6 +33,7 @@
 }
 
 :root {
+    font-family: 'Georama', sans-serif;
     /* colors */
     color-scheme: light;
     --text1: var(--text1-light);

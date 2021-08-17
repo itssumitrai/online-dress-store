@@ -23,6 +23,5 @@
         padding: 0;
         margin: 0;
         flex-wrap: wrap;
-        gap: 1rem;
     }
 </style>

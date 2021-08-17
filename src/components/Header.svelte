@@ -23,9 +23,7 @@
 </script>
 <header>
     <div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img height="32" width="32" src={logo} alt="SvelteKit" />
-		</a>
+        <!-- Put Logo here -->
 	</div>
     <Navbar isUserLoggedIn={isUserLoggedIn} />
     <div class="profile">

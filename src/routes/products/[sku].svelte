@@ -30,6 +30,7 @@
 </script>
 
 <script>
+    import ColorSelector from '../../components/ColorSelector.svelte';
     export let item;
 </script>
 
@@ -51,14 +52,7 @@
             <h3 class="brand">{item.brand}</h3>
             <h1>{item.title}</h1>
             <div class="price">{item.currency}&nbsp;{item.price}</div>
-            <div class="colorSelector">
-                <span>Color:</span>
-                <select>
-                    {#each item.color.split(',') as color}
-                    <option value={color}>{color}</option>
-                    {/each}
-                </select>
-            </div>
+            <ColorSelector colors={item.color.split(',')} />
             <div class="sizeSelector">
                 <span>Size:</span>
                 <select>
@@ -107,8 +101,8 @@
     h2 {
         font-size: 1rem;
     }
-    .colorSelector {
-        margin-bottom: 1rem;
+    .sizeSelector {
+        margin-top: 1rem;
     }
     .price {
         margin-bottom: 1.2rem;
@@ -118,5 +112,8 @@
     dt {
         font-weight: 500;
         font-size: 1rem;
+    }
+    select {
+        cursor: pointer;
     }
 </style>
