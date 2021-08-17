@@ -1,20 +1,20 @@
 * {
     /* Light colors */
-    --text1-light: #232a31;
+    --text1-light: #001A40;
     --text2-light: #464e56;
     --text3-light: #5b636a;
-    --surface1-light: #F8EDEB;
-    --surface2-light: #FAE1DD;
-    --surface3-light: #FCD5CE;
-    --surface4-light: #FEC5BB;
-    --seperator-light: #060607;
+    --surface1-light: #fff;
+    --surface2-light: #fff;
+    --surface3-light: #fff;
+    --surface4-light: #fff;
+    --seperator-light: #364954;
     --positive-light: #00873c;
     --negative-light: #eb0f29;
-    --link-light: #0f69ff;
-    --link-active-light: #125bd4;
-    --link-selected-light: #7e1fff;
+    --link-light: #006A9A;
+    --link-active-light: #008CBE;
+    --link-selected-light: #0058AA;
     --hover1-light: #e0f0ff;
-    --nav-light: #FEC89A;
+    --nav-light: #002C56;
     /* Dark colors */
     --text1-dark: #f5f8fa;
     --text2-dark: #e0e4e9;

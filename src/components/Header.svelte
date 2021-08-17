@@ -67,6 +67,7 @@
     .profile .user {
         display: flex;
         gap: 0.5rem;
+        color: white;
     }
     .profile .displayName {
         white-space: nowrap;

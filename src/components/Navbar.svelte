@@ -44,4 +44,11 @@
     nav {
         width: 100%;
     }
+    li a {
+        color: white;
+        text-decoration: none;
+    }
+    li a:hover, li a:focus {
+        text-decoration: underline;
+    }
 </style>
