@@ -1,36 +1,31 @@
 <script context="module">
-	export const prerender = true;
-    export async function load({ page, fetch }) {
-        const res = await fetch('http://localhost:3000/xhr/popular', {
-            method: 'GET'
-        });
-        if (res.ok) {
-            return {
-                props: {
-                    popularItems: await res.json()
-                }
-            };
-        }
+    import loadProducts from '../actions/loadProducts';
+	export const prerender = false;
+    export async function load(context) {
+        const [allRes] = await Promise.allSettled([
+            loadProducts(context, {}),
+        ]);
+
         return {
             props: {
-                popularItems: []
+                allItems: allRes.status === 'fulfilled' ? allRes.value : []
             }
         };
     }
 </script>
 
 <script>
-    import Popular from '../components/Popular.svelte';
-    export let popularItems;
+    import AllProducts from '../components/Products.svelte';
+    export let allItems;
 </script>
 
 <svelte:head>
-	<title>Online Dress Store</title>
+	<title>Online Dress Store - All Clothing</title>
 </svelte:head>
 
 <section>
-	<h1>Online Dress Store</h1>
-    <Popular items={popularItems}/>
+	<h1>All Clothing</h1>
+    <AllProducts items={allItems}/>
 </section>
 <style>
 </style>
