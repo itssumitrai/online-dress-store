@@ -30,15 +30,20 @@
     <Navbar isUserLoggedIn={isUserLoggedIn} />
     <div class="profile">
         {#if isUserLoggedIn}
-            <span>
-                {#if profileData.photoURL}
-                    <img src={profileData.photoURL} alt="profile picture" />
-                {/if}
-                {profileData.displayName}
-            </span>
-            <button on:click={logout}>Sign out</button>
+            <div class="user">
+                <div>
+                    {#if profileData.photoURL}
+                        <!-- svelte-ignore a11y-img-redundant-alt -->
+                        <img src={profileData.photoURL} alt="profile picture" />
+                    {/if}
+                </div>
+                <div>
+                    <div class="displayName">{profileData.displayName}</div>
+                    <button class="logBtn" on:click={logout}>Sign out</button>
+                </div>
+            </div>
         {:else}
-            <button on:click={showSignIn}>Sign in</button>
+            <button class="logBtn" on:click={showSignIn}>Sign in</button>
         {/if}
     </div>
     <div class={`modal ${showSignInModal ? 'show' : ''}`}>
@@ -51,6 +56,7 @@
     header {
         background-color: var(--nav-light);
         display: flex;
+        padding: 0 1rem;
     }
     .profile {
         position: relative;
@@ -59,6 +65,26 @@
         height: 40px;
         width: 40px;
         border-radius: 50%;
+    }
+    .profile .user {
+        display: flex;
+        gap: 0.5rem;
+    }
+    .profile .displayName {
+        white-space: nowrap;
+    }
+    .logBtn {
+        cursor: pointer;
+        white-space: nowrap;
+        background-color: var(--link);
+        color: white;
+        border: 0;
+        border-radius: 3px;
+        font-weight: 500;
+        padding: 0.2em 0.8em;
+    }
+    .logBtn:hover, .logBtn:focus {
+        background-color: var(--link-active);
     }
     .modal {
         position: fixed;

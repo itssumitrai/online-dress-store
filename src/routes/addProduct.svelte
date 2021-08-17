@@ -1,4 +1,5 @@
 <script>
+    import ImgUpload from '../components/ImgUpload.svelte';
     let additionalImages = [];
     function addAdditionalImage() {
         additionalImages = [...additionalImages, true];
@@ -7,8 +8,9 @@
     async function onSubmit(e) {
         e.preventDefault();
         const db = firebase.firestore();
-        try {
-            const formData = new FormData(e.currentTarget);
+        try {0
+            const formNode = e.currentTarget;
+            const formData = new FormData(formNode);
             const document = {};
             for (const pair of formData) {
                 if (typeof pair[1] !== 'object') {
@@ -20,7 +22,8 @@
             });
 
             await db.collection('products').add(document);
-            console.log('> Data written succesfully!');
+            alert('Product added successfully!');
+            formNode.reset();
         } catch (ex) {
             console.error(ex);
         }
@@ -48,9 +51,9 @@
     <form on:submit={onSubmit} on:change={onChange} method="POST">
         <fieldset>
             <h2>Basic</h2>
-            <label><span>SKU:</span><input type="text" name="sku"></label>
-            <label><span>Title:</span><input type="text" name="title"></label>
-            <label><span>Description:</span><textarea type="text" name="description"/></label>
+            <label><span>SKU:</span><input type="text" name="sku" required></label>
+            <label><span>Title:</span><input type="text" name="title" required></label>
+            <label><span>Description:</span><textarea type="text" name="description" required/></label>
             <label><span>Product link:</span><input type="url" name="productUrl"></label>
             <label>
                 <span>Condition:</span>
@@ -61,20 +64,20 @@
                 </select>
             </label>
             <label><span>Colors (seperate with comma for multiple):</span><input type="text" name="color"></label>
-            <label><span>Image:</span><input type="file" name="image" index="0"></label>
+            <ImgUpload index={0} previewUrl={imageUrls[0]}/>
             {#each additionalImages as image, i}
-                <label><span>Image {i + 1} Url:</span><input type="file" name={`image${i + 1}`} index={i + 1}></label>
+                <ImgUpload index={i + 1} previewUrl={imageUrls[i]}/>
             {/each}
             <button type="button" on:click={addAdditionalImage}>Add another image</button>
         </fieldset>
         <fieldset>
             <h2>Details</h2>
             <label><span>Measurements:</span><input type="text" name="measurements"></label>
-            <label><span>Product Category:</span><input type="text" name="productCategory" placeholder="dresses"></label>
-            <label><span>Product Type:</span><input type="text" name="productType" placeholder="party dress"></label>
-            <label><span>Brand:</span><input type="text" name="brand" placeholder="Tommy Hilfiger"></label>
-            <label><span>Material:</span><input type="text" name="material" placeholder="Cotton"></label>
-            <label><span>Pattern:</span><input type="text" name="pattern"></label>
+            <label><span>Product Category:</span><input type="text" name="productCategory" value="Dresses"></label>
+            <label><span>Product Type:</span><input type="text" name="productType" value="Party Dress"></label>
+            <label><span>Brand:</span><input type="text" name="brand" value="TVC"></label>
+            <label><span>Material:</span><input type="text" name="material" value="Cotton"></label>
+            <label><span>Pattern:</span><input type="text" name="pattern" value=""></label>
             <label><span>Size:</span><input type="text" name="size"></label>
             <label>
                 <span>Gender:</span>
@@ -100,8 +103,8 @@
         </fieldset>
         <fieldset>
             <h2>Availability</h2>
-            <label><span>Price:</span><input type="number" placeholder="0" name="price"></label>
-            <label><span>Currency:</span><input type="text" placeholder="INR" name="currency"></label>
+            <label><span>Price:</span><input type="number" name="price" value="0" step="0.01"></label>
+            <label><span>Currency:</span><input type="text" name="currency" value="₹"></label>
             <label>
                 <span>Availability:</span>
                 <select name="availability">
@@ -112,9 +115,9 @@
                 </select>
             </label>
             <label><span>Availability date:</span><input type="date" name="availabilityDate"></label>
-            <label><span>Shipping cost:</span><input type="number" name="shippingCost" placeholder="0"></label>
-            <label><span>Tax:</span><input type="number" name="tax" placeholder="0"></label>
-            <label><span>Tax Category:</span><input type="text" name="taxCategory" placeholder="Apparel"></label>
+            <label><span>Shipping cost:</span><input type="number" name="shippingCost" value="0" step="0.01"></label>
+            <label><span>Tax:</span><input type="number" name="tax" value="0" step="0.01"></label>
+            <label><span>Tax Category:</span><input type="text" name="taxCategory" value="Apparel"></label>
         </fieldset>
         <button>Submit</button>
     </form>

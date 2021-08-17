@@ -26,5 +26,15 @@
     </ul>
 </nav>
 <style>
-
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+    nav {
+        width: 100%;
+    }
 </style>
