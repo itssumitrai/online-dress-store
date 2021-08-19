@@ -3,7 +3,7 @@
 </script>
 <section>
     <div class="imgContainer">
-        <img class="mainImage" alt={item.title} src={item.image} loading="lazy" />
+        <img class="mainImage" alt={item.title} src={item.images[0]} loading="lazy" />
     </div>
     <div class="productDetail">
         <h3>{item.title}</h3>

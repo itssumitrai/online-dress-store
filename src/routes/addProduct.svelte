@@ -17,13 +17,12 @@
                     document[pair[0]] = pair[1];
                 }
             }
-            imageUrls.forEach((image, index) => {
-                document[`image${index === 0 ? '' : index}`] = image;
-            });
-
+            document.images = imageUrls;
             await db.collection('products').add(document);
             alert('Product added successfully!');
+            // Reset the form
             formNode.reset();
+            imageUrls = [];
         } catch (ex) {
             console.error(ex);
         }

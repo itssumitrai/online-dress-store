@@ -30,8 +30,9 @@
 </script>
 
 <script>
-    import ColorSelector from '../../components/ColorSelector.svelte';
+    // import ColorSelector from '../../components/ColorSelector.svelte';
     export let item;
+    let selectedImageIndex = 0;
 </script>
 
 <svelte:head>
@@ -42,32 +43,36 @@
     {#if currentError}
         <p>There was something wrong, please try again later. Sorry for the inconvenience.</p>
     {:else}
-        <section>
-            <img class="imgPreview" alt={item.title} src={item.image} />
+        <section class="previewImgContainer">
+            {#each item.images as image, index}
+                <button class="imgPreviewBtn" class:selected={selectedImageIndex === index} on:click="{() => selectedImageIndex = index}">
+                    <img class="imgPreview" alt={item.title} src={image} />
+                </button>
+            {/each}
         </section>
         <section>
-            <img class="mainImage" alt={item.title} src={item.image} />
+            <img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]} />
         </section>
         <section>
             <h3 class="brand">{item.brand}</h3>
             <h1>{item.title}</h1>
             <div class="price">{item.currency}&nbsp;{item.price}</div>
-            <ColorSelector colors={item.color.split(',')} />
+            <!-- <ColorSelector colors={item.color.split(',')} /> -->
             <div class="sizeSelector">
-                <span>Size:</span>
-                <select>
+                <span>Size: {item.size.split(',').map((sz) => `${sz} `).join(',')}</span>
+                <!-- <select>
                     {#each item.size.split(',') as size}
                     <option value={size}>{size}</option>
                     {/each}
-                </select>
+                </select> -->
             </div>
             <h2>Product Details</h2>
             <p class="desc">{item.description}</p>
             <dl>
                 <dt>Material:</dt>
                 <dd>{item.material}</dd>
-                <dt>Gender:</dt>
-                <dd>{item.gender}</dd>
+                <dt>Stitching type:</dt>
+                <dd>Semi-Stiched</dd>
                 {#if item.measurements}
                     <dt>Measurements:</dt>
                     <dd>{item.measurements}</dd>
@@ -81,6 +86,20 @@
         width: 80px;
         min-height: 85px;
         border: 1px solid var(--seperator);
+    }
+    .imgPreviewBtn {
+        border: 1px solid transparent;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+    }
+    .imgPreviewBtn.selected {
+        border: 1px solid var(--link);
+    }
+    .previewImgContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
     }
     .mainImage {
         max-width: 400px;
@@ -99,7 +118,7 @@
         font-size: 1.3rem;
     }
     h2 {
-        font-size: 1rem;
+        font-size: 1.15rem;
     }
     .sizeSelector {
         margin-top: 1rem;

@@ -1,6 +1,5 @@
 <script>
     import Navbar from './Navbar.svelte';
-    import logo from '../lib/header/svelte-logo.svg';
     import { getStore } from '../store';
     import LoginForm from './LoginForm.svelte';
 
