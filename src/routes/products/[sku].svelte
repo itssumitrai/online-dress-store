@@ -31,8 +31,13 @@
 
 <script>
     // import ColorSelector from '../../components/ColorSelector.svelte';
+    import { getStore } from '../../store';
     export let item;
     let selectedImageIndex = 0;
+    let isAdminUser = false;
+    getStore('auth').subscribe(({ isAdmin }) => {
+        isAdminUser = isAdmin;
+    });
 </script>
 
 <svelte:head>
@@ -54,6 +59,9 @@
             <img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]} />
         </section>
         <section>
+            {#if isAdminUser}
+                <a class="editProductLink" href={`/addProduct?sku=${item.sku}`}>Edit Product</a>
+            {/if}
             <h3 class="brand">{item.brand}</h3>
             <h1>{item.title}</h1>
             <div class="price">{item.currency}&nbsp;{item.price}</div>
@@ -71,8 +79,10 @@
             <dl>
                 <dt>Material:</dt>
                 <dd>{item.material}</dd>
-                <dt>Stitching type:</dt>
-                <dd>Semi-Stiched</dd>
+                {#if item.stitchingType}
+                    <dt>Stitching type:</dt>
+                    <dd>{item.stitchingType}</dd>
+                {/if}
                 {#if item.measurements}
                     <dt>Measurements:</dt>
                     <dd>{item.measurements}</dd>
@@ -86,6 +96,17 @@
         width: 80px;
         min-height: 85px;
         border: 1px solid var(--seperator);
+    }
+    .editProductLink {
+        text-decoration: none;
+        background-color: var(--link);
+        font-weight: bold;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+    }
+    .editProductLink:hover, .editProductLink:focus {
+        background-color: var(--link-active);
     }
     .imgPreviewBtn {
         border: 1px solid transparent;
@@ -132,7 +153,7 @@
         font-weight: 500;
         font-size: 1rem;
     }
-    select {
+    /* select {
         cursor: pointer;
-    }
+    } */
 </style>

@@ -7,10 +7,14 @@
     import { getStore } from '../store';
     onMount(() => {
         firebase.auth().onAuthStateChanged((user) => {
-            getStore('auth').set({
-                isLoggedIn: user !== null,
-                user
-            });
+            // custom claims for the user.
+            user.getIdTokenResult().then((idTokenResult) => {
+                getStore('auth').set({
+                    isLoggedIn: user !== null,
+                    isAdmin: !!idTokenResult.claims.admin,
+                    user
+                });
+            })
         });
     });
 </script>

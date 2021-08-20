@@ -1,7 +1,7 @@
 <script>
     import Product from './Product.svelte';
     export let items;
-    export let title;
+    export let title = '';
 </script>
 <section>
     {#if title}
