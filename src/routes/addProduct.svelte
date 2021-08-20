@@ -26,35 +26,14 @@
 <script>
     import ImgUpload from '../components/ImgUpload.svelte';
     import { getStore } from '../store';
-    export let item = {
-        sku: '',
-        title: '',
-        description: '',
-        productUrl: '',
-        availability: 'In stock',
-        measurements: '',
-        size: '',
-        color: '',
-        brand: 'TVC',
-        pattern: '',
-        images: [],
-        price: 0,
-        taxCategory: 'Apparel',
-        tax: 0,
-        availabilityDate: '',
-        shippingCost: 0,
-        currency: '₹',
-        gender: 'Female',
-        ageGroup: 'Adult',
-        material: 'Cotton',
-        productType: 'Casual Dress',
-        productCategory: 'Dresses',
-        stitchingType: 'Semi-Stitched'
-    };
+    export let item = null;
     let additionalImages = [];
     let isAdminUser = false;
-    let isEditing = !!item.sku;
-    let imageUrls = item.images || [];
+    let isEditing = !!item?.sku;
+    let imageUrls = item?.images || [];
+    if (!item) {
+        formReset();
+    }
 
     getStore('auth').subscribe(({ isAdmin }) => {
         isAdminUser = isAdmin;
@@ -63,10 +42,38 @@
     function addAdditionalImage() {
         additionalImages = [...additionalImages, true];
     }
+    function formReset(forceReset = false) {
+        item = isEditing && !forceReset ? item : {
+            sku: '',
+            title: '',
+            description: '',
+            productUrl: '',
+            availability: 'In stock',
+            measurements: '',
+            size: '',
+            color: '',
+            brand: 'TVC',
+            pattern: '',
+            images: [],
+            price: 0,
+            taxCategory: 'Apparel',
+            tax: 0,
+            availabilityDate: '',
+            shippingCost: 0,
+            currency: '₹',
+            gender: 'Female',
+            ageGroup: 'Adult',
+            material: 'Cotton',
+            productType: 'Casual Dress',
+            productCategory: 'Dresses',
+            stitchingType: 'Semi-Stitched'
+        };
+        imageUrls = item.images || [];
+    }
     async function onSubmit(e) {
         e.preventDefault();
         const db = firebase.firestore();
-        try {0
+        try {
             const formNode = e.currentTarget;
             const formData = new FormData(formNode);
             const document = {};
@@ -77,12 +84,11 @@
             }
             document.images = imageUrls;
             const docRef = await db.collection('products').doc(document.sku);
-            await docRef.set(document);
+            await docRef.set(document); // if sku is present, its overriden otherwise a new one is created (Edit/Add)
             alert(`Product ${isEditing ? 'edited' : 'added '} successfully!`);
 
             // Reset the form
-            formNode.reset();
-            imageUrls = item.images || [];
+            formReset();
         } catch (ex) {
             console.error(ex);
         }
@@ -101,6 +107,20 @@
             } catch (ex) {
                 console.error(ex);
             }
+        }
+    }
+    async function onDelete() {
+        if (window.confirm('Do you really want to delete this product ? This action cannot be undone.')) {
+            try {
+                // delete from database
+                const db = firebase.firestore();
+                await db.collection('products').doc(item.sku).delete();
+                alert(`Product deleted successfully!`);
+                formReset(true);
+            } catch (ex) {
+                console.error(ex);
+            }
+            
         }
     }
 </script>
@@ -187,6 +207,9 @@
             <label><span>Tax Category:</span><input type="text" name="taxCategory" bind:value={item.taxCategory}></label>
         </fieldset>
         <button>Submit</button>
+        {#if isEditing}
+            <button type="button" class="delBtn" on:click={onDelete}>Delete Product</button>
+        {/if}
     </form>
     {:else}
     <div>
@@ -223,6 +246,9 @@
         padding: 6px 10px;
         border: 0;
         border-radius: 4px;
+    }
+    .delBtn {
+        background-color: var(--negative);
     }
     button:hover,button:focus {
         background-color: var(--link-active);
