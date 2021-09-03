@@ -1,0 +1,8 @@
+{
+    "name": "functions",
+    "main": "index.js",
+    "private": true,
+    "dependencies": {
+        "firebase-functions": "^3.7.0"
+    }
+}
