@@ -1,8 +1,12 @@
 {
-    "name": "functions",
-    "main": "index.js",
-    "private": true,
-    "dependencies": {
-        "firebase-functions": "^3.7.0"
-    }
+	"name": "functions",
+	"main": "index.js",
+	"private": true,
+	"scripts": {
+		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
+		"build": "echo BUILD"
+	},
+	"dependencies": {
+		"firebase-functions": "^3.7.0"
+	}
 }

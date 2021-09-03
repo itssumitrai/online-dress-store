@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+const functions = require('firebase-functions');
 
 let sveltekitServer;
 exports.sveltekit = functions.https.onRequest(async (request, response) => {
