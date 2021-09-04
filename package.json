@@ -7,7 +7,9 @@
 		"preview": "GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json svelte-kit preview",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --write --plugin-search-dir=. .",
-		"deploy": "firebase use dress-catalog && firebase deploy"
+		"deploy": "firebase deploy",
+		"deploy:hosting": "firebase deploy --hosting",
+		"deploy:sveltekit": "firebase deploy --only \"functions:sveltekit\" --debug"
 	},
 	"author": "Sumit Rai <sumit.rai1987@gmail.com>",
 	"devDependencies": {
