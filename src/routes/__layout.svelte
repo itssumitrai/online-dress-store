@@ -9,7 +9,7 @@
 	onMount(() => {
 		firebase.auth().onAuthStateChanged((user) => {
 			// custom claims for the user.
-			user.getIdTokenResult().then((idTokenResult) => {
+			user?.getIdTokenResult().then((idTokenResult) => {
 				getStore('auth').set({
 					isLoggedIn: user !== null,
 					isAdmin: !!idTokenResult.claims.admin,

@@ -8,5 +8,10 @@ exports.sveltekit = functions.https.onRequest(async (request, response) => {
 		functions.logger.info('SvelteKit SSR entry initialised!');
 	}
 	functions.logger.info('Requested resource: ' + request.originalUrl);
-	return sveltekitServer(request, response);
+	try {
+		return sveltekitServer(request, response);
+	} catch (ex) {
+		functions.logger.error(ex);
+		return null;
+	}
 });
