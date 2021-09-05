@@ -1,0 +1,11 @@
+name: firebase-deploy-action
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    steps:
+      - run: echo "🔎 Deploying latest code to firebase"
+      - run: npm run deploy
+      - run: echo "🍏 Job Status is ${{ job.status }}."

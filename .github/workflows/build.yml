@@ -1,7 +1,13 @@
-name: firebase-deploy-action
-on: [push]
+name: build-action
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
-  Build
+  build:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🔎 Job triggered on repository=${{ github.repository }} and branch=${{ github.ref }}"
@@ -13,5 +19,4 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test
-      - run: npm run deploy
       - run: echo "🍏 Job Status is ${{ job.status }}."
