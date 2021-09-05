@@ -18,5 +18,10 @@ jobs:
       - run: npm run build
       - run: npm run test
       - run: echo "🔎 Deploying latest code to firebase"
-      - run: npm run deploy
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DRESS_CATALOG }}'
+          channelId: live
+          projectId: dress-catalog
       - run: echo "🍏 Job Status is ${{ job.status }}."
