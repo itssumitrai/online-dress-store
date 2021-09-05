@@ -1,3 +1,5 @@
+import { getHost } from '../lib/utils';
+
 export default async function loadProducts(context, params = {}) {
 	const { session, fetch } = context;
 	const ALLOWED_PARAMS = ['sku'];
@@ -9,7 +11,7 @@ export default async function loadProducts(context, params = {}) {
 	});
 
 	return fetch(
-		`http://${session.host}/xhr/allProducts?${new URLSearchParams(finalSearchParams).toString()}`,
+		`//${getHost(session)}/xhr/allProducts?${new URLSearchParams(finalSearchParams).toString()}`,
 		{
 			method: 'GET'
 		}

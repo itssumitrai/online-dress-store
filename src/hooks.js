@@ -1,13 +1,7 @@
 import cookie from 'cookie';
 import { v4 as uuid } from '@lukeed/uuid';
-// Firebase App (the core Firebase SDK) is always required and
-// must be listed before other Firebase SDKs
-import firebase from 'firebase';
-// Add the Firebase services that you want to use
-import 'firebase/auth';
-import 'firebase/firestore';
 import { config } from './lib/firebase';
-import admin from 'firebase-admin';
+import * as admin from 'firebase-admin';
 import { reset } from './store';
 
 export const handle = async ({ request, resolve }) => {
@@ -33,12 +27,13 @@ export const handle = async ({ request, resolve }) => {
 export function getSession(request) {
 	// reset store state
 	reset();
-	if (firebase.apps.length === 0) {
-		// only initialize firebase once.
+
+	if (admin && admin.apps && admin.apps.length === 0) {
+		// only initialize firebase admin sdk once on the server
 		admin.initializeApp({
+			...config,
 			credential: admin.credential.applicationDefault()
 		});
-		firebase.initializeApp(config);
 	}
 
 	return {

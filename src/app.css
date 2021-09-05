@@ -1,99 +1,99 @@
 * {
-    /* Light colors */
-    --text1-light: #001A40;
-    --text2-light: #464e56;
-    --text3-light: #5b636a;
-    --surface1-light: #fff;
-    --surface2-light: #fff;
-    --surface3-light: #fff;
-    --surface4-light: #fff;
-    --seperator-light: #364954;
-    --positive-light: #00873c;
-    --negative-light: #eb0f29;
-    --link-light: #006A9A;
-    --link-active-light: #008CBE;
-    --link-selected-light: #0058AA;
-    --hover1-light: #e0f0ff;
-    --nav-light: #002C56;
-    /* Dark colors */
-    --text1-dark: #f5f8fa;
-    --text2-dark: #e0e4e9;
-    --text3-dark: #b9bdc5;
-    --surface1-dark: #000000;
-    --surface2-dark: #101518;
-    --surface3-dark: #1d2228;
-    --surface4-dark: #232a31;
-    --seperator-dark: #555;
-    --positive-dark: #00873c;
-    --negative-dark: #eb0f29;
-    --link-dark: #12a9ff;
-    --link-active-dark: #188fff;
-    --link-selected-dark: #5d5eff;
-    --hover1-dark: #154966;
+	/* Light colors */
+	--text1-light: #001a40;
+	--text2-light: #464e56;
+	--text3-light: #5b636a;
+	--surface1-light: #fff;
+	--surface2-light: #fff;
+	--surface3-light: #fff;
+	--surface4-light: #fff;
+	--seperator-light: #364954;
+	--positive-light: #00873c;
+	--negative-light: #eb0f29;
+	--link-light: #006a9a;
+	--link-active-light: #008cbe;
+	--link-selected-light: #0058aa;
+	--hover1-light: #e0f0ff;
+	--nav-light: #002c56;
+	/* Dark colors */
+	--text1-dark: #f5f8fa;
+	--text2-dark: #e0e4e9;
+	--text3-dark: #b9bdc5;
+	--surface1-dark: #000000;
+	--surface2-dark: #101518;
+	--surface3-dark: #1d2228;
+	--surface4-dark: #232a31;
+	--seperator-dark: #555;
+	--positive-dark: #00873c;
+	--negative-dark: #eb0f29;
+	--link-dark: #12a9ff;
+	--link-active-dark: #188fff;
+	--link-selected-dark: #5d5eff;
+	--hover1-dark: #154966;
 }
 
 :root {
-    font-family: 'Georama', sans-serif;
-    /* colors */
-    color-scheme: light;
-    --text1: var(--text1-light);
-    --text2: var(--text2-light);
-    --text3: var(--text3-light);
-    --surface1: var(--surface1-light);
-    --surface2: var(--surface2-light);
-    --surface3: var(--surface3-light);
-    --surface4: var(--surface4-light);
-    --seperator: var(--seperator-light);
-    --positive: var(--positive-light);
-    --negative: var(--negative-light);
-    --link: var(--link-light);
-    --link-active: var(--link-active-light);
-    --link-selected: var(--link-selected-light);
-    --max-width: 1200px;
+	font-family: 'Georama', sans-serif;
+	/* colors */
+	color-scheme: light;
+	--text1: var(--text1-light);
+	--text2: var(--text2-light);
+	--text3: var(--text3-light);
+	--surface1: var(--surface1-light);
+	--surface2: var(--surface2-light);
+	--surface3: var(--surface3-light);
+	--surface4: var(--surface4-light);
+	--seperator: var(--seperator-light);
+	--positive: var(--positive-light);
+	--negative: var(--negative-light);
+	--link: var(--link-light);
+	--link-active: var(--link-active-light);
+	--link-selected: var(--link-selected-light);
+	--max-width: 1200px;
 }
 
 body {
-    color: var(--text1);
+	color: var(--text1);
 	min-height: 100vh;
 	margin: 0;
-    font-size: 1rem;
-    background-color: var(--surface1);
+	font-size: 1rem;
+	background-color: var(--surface1);
 }
 
-body[theme="dark"] {
-    color-scheme: dark;
-    --text1: var(--text1-dark);
-    --text2: var(--text2-dark);
-    --text3: var(--text3-dark);
-    --surface1: var(--surface1-dark);
-    --surface2: var(--surface2-dark);
-    --surface3: var(--surface3-dark);
-    --surface4: var(--surface4-dark);
-    --seperator: var(--seperator-dark);
-    --positive: var(--positive-dark);
-    --negative: var(--negative-dark);
-    --link: var(--link-dark);
-    --link-active: var(--link-active-dark);
-    --link-selected: var(--link-selected-dark);
+body[theme='dark'] {
+	color-scheme: dark;
+	--text1: var(--text1-dark);
+	--text2: var(--text2-dark);
+	--text3: var(--text3-dark);
+	--surface1: var(--surface1-dark);
+	--surface2: var(--surface2-dark);
+	--surface3: var(--surface3-dark);
+	--surface4: var(--surface4-dark);
+	--seperator: var(--seperator-dark);
+	--positive: var(--positive-dark);
+	--negative: var(--negative-dark);
+	--link: var(--link-dark);
+	--link-active: var(--link-active-dark);
+	--link-selected: var(--link-selected-dark);
 }
 
 @media (prefers-color-scheme: dark) {
-    body[theme="auto"] {
-        color-scheme: dark;
-        --text1: var(--text1-dark);
-        --text2: var(--text2-dark);
-        --text3: var(--text3-dark);
-        --surface1: var(--surface1-dark);
-        --surface2: var(--surface2-dark);
-        --surface3: var(--surface3-dark);
-        --surface4: var(--surface4-dark);
-        --seperator: var(--seperator-dark);
-        --positive: var(--positive-dark);
-        --negative: var(--negative-dark);
-        --link: var(--link-dark);
-        --link-active: var(--link-active-dark);
-        --link-selected: var(--link-selected-dark);
-    }
+	body[theme='auto'] {
+		color-scheme: dark;
+		--text1: var(--text1-dark);
+		--text2: var(--text2-dark);
+		--text3: var(--text3-dark);
+		--surface1: var(--surface1-dark);
+		--surface2: var(--surface2-dark);
+		--surface3: var(--surface3-dark);
+		--surface4: var(--surface4-dark);
+		--seperator: var(--seperator-dark);
+		--positive: var(--positive-dark);
+		--negative: var(--negative-dark);
+		--link: var(--link-dark);
+		--link-active: var(--link-active-dark);
+		--link-selected: var(--link-selected-dark);
+	}
 }
 
 #svelte {
@@ -102,6 +102,5 @@ body[theme="dark"] {
 	flex-direction: column;
 }
 button {
-    cursor: pointer;
+	cursor: pointer;
 }
-

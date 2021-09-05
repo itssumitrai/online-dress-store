@@ -1,22 +1,23 @@
 <script context="module">
 </script>
+
 <script>
 	import Header from '../components/Header.svelte';
 	import '../app.css';
-    import { onMount } from "svelte";
-    import { getStore } from '../store';
-    onMount(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-            // custom claims for the user.
-            user.getIdTokenResult().then((idTokenResult) => {
-                getStore('auth').set({
-                    isLoggedIn: user !== null,
-                    isAdmin: !!idTokenResult.claims.admin,
-                    user
-                });
-            })
-        });
-    });
+	import { onMount } from 'svelte';
+	import { getStore } from '../store';
+	onMount(() => {
+		firebase.auth().onAuthStateChanged((user) => {
+			// custom claims for the user.
+			user?.getIdTokenResult().then((idTokenResult) => {
+				getStore('auth').set({
+					isLoggedIn: user !== null,
+					isAdmin: !!idTokenResult.claims.admin,
+					user
+				});
+			});
+		});
+	});
 </script>
 
 <Header />
@@ -36,7 +37,7 @@
 		width: 100%;
 		max-width: var(--max-width);
 		margin: 0 auto;
-        background-color: var(--surface2);
+		background-color: var(--surface2);
 		box-sizing: border-box;
 	}
 
