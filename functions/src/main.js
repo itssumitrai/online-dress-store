@@ -4,7 +4,7 @@ let sveltekitServer;
 exports.sveltekit = functions.https.onRequest(async (request, response) => {
 	if (!sveltekitServer) {
 		functions.logger.info('Initialising SvelteKit SSR entry');
-		sveltekitServer = require('./sveltekit/index').default;
+		sveltekitServer = require('../sveltekit/indexx').default;
 		functions.logger.info('SvelteKit SSR entry initialised!');
 	}
 	functions.logger.info('Requested resource: ' + request.originalUrl);
