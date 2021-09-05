@@ -8,9 +8,9 @@
 		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"test": "echo TEST",
 		"format": "prettier --write --plugin-search-dir=. .",
-		"deploy": "firebase deploy",
-		"deploy:hosting": "firebase deploy --only hosting",
-		"deploy:sveltekit": "firebase deploy --only \"functions:sveltekit\""
+		"deploy": "firebase deploy --project dress-catalog",
+		"deploy:hosting": "firebase deploy --only hosting --project dress-catalog",
+		"deploy:sveltekit": "firebase deploy --only \"functions:sveltekit\" --project dress-catalog"
 	},
 	"author": "Sumit Rai <sumit.rai1987@gmail.com>",
 	"devDependencies": {
