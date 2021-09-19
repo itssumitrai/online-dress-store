@@ -4,6 +4,8 @@
 	"scripts": {
 		"dev": "GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json svelte-kit dev",
 		"build": "npx rimraf build && svelte-kit build --verbose",
+		"build:functions": "cd functions && npm install && npm run build && cd -",
+		"build:production": "npm run build:functions && npm run build",
 		"preview": "GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json svelte-kit preview",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"test": "echo TEST",
@@ -14,23 +16,23 @@
 	},
 	"author": "Sumit Rai <sumit.rai1987@gmail.com>",
 	"devDependencies": {
-		"@sveltejs/kit": "next",
-		"eslint": "^7.22.0",
+		"@sveltejs/kit": "^1.0.0-next.169",
+		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.1.0",
-		"eslint-plugin-svelte3": "^3.2.0",
-		"firebase-tools": "^9.17.0",
+		"eslint-plugin-svelte3": "^3.2.1",
+		"firebase-tools": "^9.18.0",
 		"prettier": "~2.2.1",
-		"prettier-plugin-svelte": "^2.2.0",
-		"svelte": "^3.34.0",
-		"svelte-adapter-firebase": "^0.11.0"
+		"prettier-plugin-svelte": "^2.4.0",
+		"svelte": "^3.42.6",
+		"svelte-adapter-firebase": "^0.11.2"
 	},
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.2.2",
 		"@lukeed/uuid": "^2.0.0",
 		"cookie": "^0.4.1",
-		"firebase": "^9.0.1",
-		"firebase-admin": "^9.11.0",
-		"firebase-functions": "^3.14.1"
+		"firebase": "^9.0.2",
+		"firebase-admin": "^9.11.1",
+		"firebase-functions": "^3.15.6"
 	}
 }

@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { v4 as uuid } from '@lukeed/uuid';
 import { config } from './lib/firebase';
-import * as admin from 'firebase-admin';
+import admin from 'firebase-admin';
 import { reset } from './store';
 
 export const handle = async ({ request, resolve }) => {
@@ -28,7 +28,7 @@ export function getSession(request) {
 	// reset store state
 	reset();
 
-	if (admin && admin.apps && admin.apps.length === 0) {
+	if (!admin.apps || admin.apps.length === 0) {
 		// only initialize firebase admin sdk once on the server
 		admin.initializeApp({
 			...config,
