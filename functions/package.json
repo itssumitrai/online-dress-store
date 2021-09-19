@@ -3,7 +3,6 @@
 	"main": "index.js",
 	"private": true,
 	"scripts": {
-		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
 		"test": "echo TEST",
 		"build": "rollup --config"
 	},
