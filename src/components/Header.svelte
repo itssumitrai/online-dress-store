@@ -92,7 +92,7 @@
 		width: 100%;
 		height: 100%;
 		display: none;
-        z-index: 50;
+		z-index: 50;
 		justify-content: center;
 		align-items: center;
 		background-color: rgba(0, 0, 0, 0.5);

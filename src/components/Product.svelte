@@ -9,7 +9,6 @@
 	<div class="productDetail">
 		<h5>{item.brand}</h5>
 		<h3>{item.title}</h3>
-		<p class="desc">{item.description}</p>
 		<p class="price">{item.currency}&nbsp;{item.price}</p>
 	</div>
 	<!-- svelte-ignore a11y-missing-content -->
@@ -44,12 +43,6 @@
 	.productLink:hover,
 	.productLink:focus-visible {
 		border: 1px solid var(--link-active);
-	}
-	.desc {
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
-		overflow: hidden;
 	}
 	h5 {
 		margin: 0;

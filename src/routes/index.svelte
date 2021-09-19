@@ -18,11 +18,11 @@
 </script>
 
 <svelte:head>
-	<title>Online Dress Store - All Clothing</title>
+	<title>Vinayak Collection - Shop latest trends in women's ethnic clothing</title>
 </svelte:head>
 
 <section>
-	<h1>All Clothing</h1>
+	<h1>All Dresses</h1>
 	<AllProducts items={allItems} />
 </section>
 

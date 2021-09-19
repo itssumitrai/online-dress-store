@@ -12,9 +12,9 @@
 			{index}
 		/></label
 	>
-    {#if image}
-        <img src={image['80x112'] || image.orig} alt="" class="imagePreview" />
-    {/if}
+	{#if image}
+		<img src={image['80x112'] || image.orig} alt="" class="imagePreview" />
+	{/if}
 </div>
 
 <style>

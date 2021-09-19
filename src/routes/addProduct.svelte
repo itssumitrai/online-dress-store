@@ -101,14 +101,14 @@
 			const { files } = target;
 			const [file] = files;
 			const storageRef = firebase.storage().ref();
-            const fileRef = storageRef.child(file.name);
+			const fileRef = storageRef.child(file.name);
 			try {
 				await fileRef.put(file);
 				const origImgUrl = await fileRef.getDownloadURL();
 				itemImages[Number(target.getAttribute('index'))] = {
-                    name: file.name,
-                    orig: origImgUrl
-                };
+					name: file.name,
+					orig: origImgUrl
+				};
 			} catch (ex) {
 				console.error(ex);
 			}

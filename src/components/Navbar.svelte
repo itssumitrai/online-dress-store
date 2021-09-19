@@ -5,10 +5,6 @@
 		{
 			url: '/',
 			label: 'Home'
-		},
-		{
-			url: '/about',
-			label: 'About'
 		}
 	];
 	if (isUserLoggedIn) {
