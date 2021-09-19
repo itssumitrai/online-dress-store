@@ -29,7 +29,7 @@
 	let additionalImages = [];
 	let isAdminUser = false;
 	let isEditing = !!item?.sku;
-	let imageUrls = item?.images || [];
+	let itemImages = item?.images || [];
 	if (!item) {
 		formReset();
 	}
@@ -70,7 +70,7 @@
 						productCategory: 'Dresses',
 						stitchingType: 'Semi-Stitched'
 				  };
-		imageUrls = item.images || [];
+		itemImages = item.images || [];
 	}
 	async function onSubmit(e) {
 		e.preventDefault();
@@ -78,15 +78,15 @@
 		try {
 			const formNode = e.currentTarget;
 			const formData = new FormData(formNode);
-			const document = {};
+			const firebaseDoc = {};
 			for (const pair of formData) {
 				if (typeof pair[1] !== 'object') {
-					document[pair[0]] = pair[1];
+					firebaseDoc[pair[0]] = pair[1];
 				}
 			}
-			document.images = imageUrls;
-			const docRef = await db.collection('products').doc(document.sku);
-			await docRef.set(document); // if sku is present, its overriden otherwise a new one is created (Edit/Add)
+			firebaseDoc.images = itemImages;
+			const docRef = await db.collection('products').doc(firebaseDoc.sku);
+			await docRef.set(firebaseDoc); // if sku is present, its overriden otherwise a new one is created (Edit/Add)
 			alert(`Product ${isEditing ? 'edited' : 'added '} successfully!`);
 
 			// Reset the form
@@ -101,11 +101,14 @@
 			const { files } = target;
 			const [file] = files;
 			const storageRef = firebase.storage().ref();
-			const fileRef = storageRef.child(file.name);
+            const fileRef = storageRef.child(file.name);
 			try {
 				await fileRef.put(file);
-				const fileUrl = await fileRef.getDownloadURL();
-				imageUrls[Number(target.getAttribute('index'))] = fileUrl;
+				const origImgUrl = await fileRef.getDownloadURL();
+				itemImages[Number(target.getAttribute('index'))] = {
+                    name: file.name,
+                    orig: origImgUrl
+                };
 			} catch (ex) {
 				console.error(ex);
 			}
@@ -175,9 +178,9 @@
 						bind:value={item.color}
 					/></label
 				>
-				<ImgUpload index={0} previewUrl={imageUrls[0]} />
-				{#each additionalImages as image, i}
-					<ImgUpload index={i + 1} previewUrl={imageUrls[i]} />
+				<ImgUpload index={0} image={itemImages[0]} />
+				{#each additionalImages as img, i}
+					<ImgUpload index={i + 1} image={itemImages[i]} />
 				{/each}
 				<button type="button" on:click={addAdditionalImage}>Add another image</button>
 			</fieldset>

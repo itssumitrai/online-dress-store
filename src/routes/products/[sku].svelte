@@ -53,12 +53,12 @@
 					class:selected={selectedImageIndex === index}
 					on:click={() => (selectedImageIndex = index)}
 				>
-					<img class="imgPreview" alt={item.title} src={image} />
+					<img class="imgPreview" alt={item.title} src={image['80x112']} />
 				</button>
 			{/each}
 		</section>
 		<section>
-			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]} />
+			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]['400x560']} />
 		</section>
 		<section>
 			{#if isAdminUser}
