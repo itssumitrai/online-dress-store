@@ -1,7 +1,7 @@
 export const get = async (request) => {
 	let res;
 	try {
-		res = await fetch(`http://${request.host}/xhr/test?value=popular`, {
+		res = await fetch(`${request.protocol}//${request.host}/xhr/test?value=popular`, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json'

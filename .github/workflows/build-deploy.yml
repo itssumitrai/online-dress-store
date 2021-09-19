@@ -16,6 +16,11 @@ jobs:
       - run: npm install
       - run: cd functions && npm install && npm run build && cd -
       - run: npm run build
+      - uses: jsdaniell/create-json@1.1.2
+        with:
+          name: 'serviceAccountKey.json'
+          json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          dir: 'functions/sveltekit/'
       - run: npm run test
       - run: echo "🔎 Deploying latest code to firebase"
       - uses: w9jds/firebase-action@master

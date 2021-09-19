@@ -1,28 +1,18 @@
 # online-dress-store
 
-An Online store website for dresses
+An Online store website for dresses built with [sveltekit](https://github.com/sveltejs) and [Firebase](https://console.firebase.google.com/)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+## Prerequisites
 
-## Creating a project
+In order for `firebase-admin` to work correctly, you need to get the serviceAccountKey from Firebase account and put in the root folder in the fileName called `serviceAccountKey.json`
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Development
 
 ```bash
+# install dependencies
+npm install
+
+# run dev server
 npm run dev
 
 # or start the server and open the app in a new browser tab
@@ -38,3 +28,7 @@ npm run build
 ```
 
 > You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+
+## Deployment
+
+Deploys to firebase hosting by using firebase functions for SSR.

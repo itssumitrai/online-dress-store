@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 
 let sveltekitServer;
-exports.sveltekit = functions.https.onRequest(async (request, response) => {
+export const sveltekit = functions.https.onRequest(async (request, response) => {
 	if (!sveltekitServer) {
 		functions.logger.info('Initialising SvelteKit SSR entry');
 		sveltekitServer = require('./sveltekit/index').default;

@@ -20,7 +20,7 @@
 			"port": 5002
 		},
 		"firestore": {
-			"port": 8080
+			"port": 8081
 		},
 		"database": {
 			"port": 9000
@@ -29,7 +29,10 @@
 			"port": 5000
 		},
 		"pubsub": {
-			"port": 8085
+			"port": 8086
+		},
+		"ui": {
+			"enabled": true
 		}
 	}
 }

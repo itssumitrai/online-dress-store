@@ -1,4 +1,4 @@
-import admin from 'firebase-admin';
+import { getDatabase, getStorage } from '../../../firebaseUtil';
 
 const getProcessedItem = async (item, bucket) => {
 	const { images } = item;
@@ -66,9 +66,8 @@ const getProcessedItem = async (item, bucket) => {
 
 export const get = async ({ query }) => {
 	const sku = query.get('sku');
-	const db = admin.firestore(); // for firestore
-	const bucket = admin.storage().bucket(); // for storage
-	let productsRef = db.collection('products');
+	const bucket = getStorage().bucket(); // for storage
+	let productsRef = getDatabase().collection('products');
 	if (sku) {
 		productsRef = productsRef.where('sku', '==', sku);
 	}
