@@ -61,40 +61,39 @@
 			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]['400x560']} />
 		</section>
 		<section>
-			{#if isAdminUser}
-				<a class="editProductLink" href={`/addProduct?sku=${item.sku}`}>Edit Product</a>
-			{/if}
-			<h3 class="brand">{item.brand}</h3>
-			<h1>{item.title}</h1>
-			<div class="price">{item.currency}&nbsp;{item.price}</div>
-			<!-- <ColorSelector colors={item.color.split(',')} /> -->
-			<div class="sizeSelector">
-				<span
-					>Size: {item.size
-						.split(',')
-						.map((sz) => `${sz} `)
-						.join(',')}</span
-				>
-				<!-- <select>
-                    {#each item.size.split(',') as size}
-                    <option value={size}>{size}</option>
-                    {/each}
-                </select> -->
+			<div class="topSection">
+				{#if isAdminUser}
+					<a class="editProductLink" href={`/addProduct?sku=${item.sku}`}>Edit Product</a>
+				{/if}
+				<h3 class="brand">{item.brand}</h3>
+				<h1>{item.title}</h1>
 			</div>
-			<h2>Product Details</h2>
-			<p class="desc">{item.description}</p>
-			<dl>
-				<dt>Material:</dt>
-				<dd>{item.material}</dd>
-				{#if item.stitchingType}
-					<dt>Stitching type:</dt>
-					<dd>{item.stitchingType}</dd>
-				{/if}
-				{#if item.measurements}
-					<dt>Measurements:</dt>
-					<dd>{item.measurements}</dd>
-				{/if}
-			</dl>
+			<div class="detailSection">
+				<div class="price">{item.currency}&nbsp;{item.price}</div>
+				<!-- <ColorSelector colors={item.color.split(',')} /> -->
+				<div class="sizeSelector">
+					<span>Size: {item.size.split(',').join(', ')}</span>
+					<!-- <select>
+                        {#each item.size.split(',') as size}
+                        <option value={size}>{size}</option>
+                        {/each}
+                    </select> -->
+				</div>
+				<h2>Product Details</h2>
+				<p class="desc">{item.description}</p>
+				<dl>
+					<dt>Material:</dt>
+					<dd>{item.material}</dd>
+					{#if item.stitchingType}
+						<dt>Stitching type:</dt>
+						<dd>{item.stitchingType}</dd>
+					{/if}
+					{#if item.measurements}
+						<dt>Measurements:</dt>
+						<dd>{item.measurements}</dd>
+					{/if}
+				</dl>
+			</div>
 		</section>
 	{/if}
 </section>
@@ -132,13 +131,12 @@
 		gap: 0.7rem;
 	}
 	.mainImage {
-		max-width: 400px;
-		min-width: 400px;
+		width: 100%;
 		min-height: 450px;
 	}
 	.productDetails {
 		display: flex;
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
 		gap: 1rem;
 	}
 	.brand {

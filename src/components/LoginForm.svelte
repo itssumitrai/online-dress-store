@@ -88,8 +88,8 @@
 			<label><span class="text">Password:</span><input type="password" name="password" /></label>
 			<button type="submit">{isLoading ? 'Logging in...' : 'Login'}</button>
 		</form>
-		<button on:click={showRegister}>Create a new account</button>
-		<button on:click={resetPassword}>Reset password</button>
+		<!-- <button on:click={showRegister}>Create a new account</button> -->
+		<!-- <button on:click={resetPassword}>Reset password</button> -->
 		{#if hasLoginError}
 			<p class="errorMsg">Some Error happened while logging in, please try again</p>
 		{/if}
