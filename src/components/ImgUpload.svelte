@@ -1,5 +1,5 @@
 <script>
-	export let previewUrl;
+	export let image;
 	export let index = 0;
 	export let title = 'Image';
 </script>
@@ -12,11 +12,13 @@
 			{index}
 		/></label
 	>
-	<img src={previewUrl} alt="" class="imagePreview" />
+    {#if image}
+        <img src={image['80x112'] || image.orig} alt="" class="imagePreview" />
+    {/if}
 </div>
 
 <style>
 	.imagePreview {
-		width: 100px;
+		width: 80px;
 	}
 </style>

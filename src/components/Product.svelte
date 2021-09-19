@@ -4,7 +4,7 @@
 
 <section>
 	<div class="imgContainer">
-		<img class="mainImage" alt={item.title} src={item.images[0]} loading="lazy" />
+		<img class="mainImage" alt={item.title} src={item.images[0]['250x350']} loading="lazy" />
 	</div>
 	<div class="productDetail">
 		<h5>{item.brand}</h5>
