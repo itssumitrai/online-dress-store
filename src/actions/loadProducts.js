@@ -11,7 +11,9 @@ export default async function loadProducts(context, params = {}) {
 	});
 
 	return fetch(
-		`//${getHost(session)}/xhr/allProducts?${new URLSearchParams(finalSearchParams).toString()}`,
+		`${session.protocol}//${getHost(session)}/xhr/allProducts?${new URLSearchParams(
+			finalSearchParams
+		).toString()}`,
 		{
 			method: 'GET'
 		}
