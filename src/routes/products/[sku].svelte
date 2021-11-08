@@ -39,7 +39,8 @@
 </script>
 
 <svelte:head>
-	<title>Online Dress Store - {item.title}</title>
+	<title>Vinaayak Collection - {item.title}</title>
+    <meta name="description" content={`view more details for ${item.title} on Vinaayak Collection`} />
 </svelte:head>
 
 <section class="productDetails">

@@ -130,7 +130,10 @@
 		}
 	}
 </script>
-
+<svelte:head>
+	<title>Vinaayak Collection - Add/Edit Product</title>
+    <meta name="robots" content="noindex" />
+</svelte:head>
 <section>
 	{#if isAdminUser}
 		<h1>{isEditing ? `Edit Product: ${item.sku}` : 'Add Product'}</h1>

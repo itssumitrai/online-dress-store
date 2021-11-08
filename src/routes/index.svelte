@@ -18,11 +18,12 @@
 </script>
 
 <svelte:head>
-	<title>Vinayak Collection - Shop latest trends in women's ethnic clothing</title>
+	<title>Vinaayak Collection - Shop latest trends in women's ethnic clothing</title>
+    <meta name="description" content="shop latest indian womens clothing comprising of latest & modern designs, and with handcrafted details on high quality material" />
 </svelte:head>
 
 <section>
-	<h1>All Dresses</h1>
+	<h1>All Products</h1>
 	<AllProducts items={allItems} />
 </section>
 

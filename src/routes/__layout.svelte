@@ -1,6 +1,3 @@
-<script context="module">
-</script>
-
 <script>
 	import Header from '../components/Header.svelte';
 	import '../app.css';
@@ -18,6 +15,7 @@
 			});
 		});
 	});
+    const year = new Date().getFullYear();
 </script>
 
 <Header />
@@ -25,7 +23,7 @@
 	<slot />
 </main>
 <footer>
-	<p>2021. All rights reserved.</p>
+	<p>© {year} Vinaayak Collection. All rights reserved.</p>
 </footer>
 
 <style>
