@@ -1,13 +1,14 @@
 <script>
 	export let item;
+    export let lazy = true;
 </script>
 
 <section>
 	<div class="imgContainer">
-		<img class="mainImage" alt={item.title} src={item.images[0]['250x350']} loading="lazy" />
+		<img class="mainImage" alt={item.title} src={item.images[0]['250x350']} loading={lazy ? 'lazy' : 'eager'} height="350" width="250" />
 	</div>
 	<div class="productDetail">
-		<h5>{item.brand}</h5>
+		<h4>{item.brand}</h4>
 		<h3>{item.title}</h3>
 		<p class="price">{item.currency}&nbsp;{item.price}</p>
 	</div>
@@ -44,7 +45,7 @@
 	.productLink:focus-visible {
 		border: 1px solid var(--link-active);
 	}
-	h5 {
+	h4 {
 		margin: 0;
 		margin-bottom: 0.5rem;
 	}

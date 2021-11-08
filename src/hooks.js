@@ -1,6 +1,10 @@
 import { reset } from './store';
+import { directives } from './csp-policy';
+import { dev } from '$app/env';
 
-const { NODE_ENV } = process.env;
+const CSP = Object.entries(directives)
+	.map(([key, arr]) => key + ' ' + arr.join(' '))
+	.join('; ');
 
 export const handle = async ({ request, resolve }) => {
 	// TODO https://github.com/sveltejs/kit/issues/1046
@@ -9,7 +13,16 @@ export const handle = async ({ request, resolve }) => {
 	}
 
 	const response = await resolve(request);
-	return response;
+	return {
+		...response,
+		headers: {
+			...response.headers,
+			'X-Frame-Options': 'SAMEORIGIN',
+			'Referrer-Policy': 'no-referrer',
+			'X-Content-Type-Options': 'nosniff',
+			'Content-Security-Policy': CSP
+		}
+	};
 };
 
 export function getSession(request) {
@@ -18,6 +31,6 @@ export function getSession(request) {
 
 	return {
 		host: request.host,
-		protocol: NODE_ENV === 'development' ? 'http:' : 'https:'
+		protocol: dev ? 'http:' : 'https:'
 	};
 }

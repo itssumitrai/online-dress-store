@@ -29,9 +29,9 @@
 		}
 	}
 </script>
-
 <svelte:head>
-	<title>Online dress store - Add Moderator</title>
+	<title>Vinaayak Collection - Add Moderator</title>
+    <meta name="robots" content="noindex" />
 </svelte:head>
 <section>
 	<h1>Add Moderator</h1>

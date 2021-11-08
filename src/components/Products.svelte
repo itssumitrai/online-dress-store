@@ -2,6 +2,7 @@
 	import Product from './Product.svelte';
 	export let items;
 	export let title = '';
+    const lazyItems = 4;
 </script>
 
 <section>
@@ -9,9 +10,9 @@
 		<h2>All Products</h2>
 	{/if}
 	<ul>
-		{#each items as item}
+		{#each items as item, index}
 			<li>
-				<Product {item} />
+				<Product {item} lazy={index >= lazyItems}/>
 			</li>
 		{/each}
 	</ul>
