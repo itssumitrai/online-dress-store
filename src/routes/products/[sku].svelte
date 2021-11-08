@@ -59,7 +59,7 @@
 			{/each}
 		</section>
 		<section>
-			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]['400x560']} />
+			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]['400x560']} height="560" width="400" />
 		</section>
 		<section>
 			<div class="topSection">
