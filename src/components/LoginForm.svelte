@@ -1,4 +1,5 @@
 <script>
+	/* global firebase */
 	export let onClose;
 	let hasLoginError = false;
 	let hasSignupError = false;
@@ -40,17 +41,17 @@
 	function showLogin() {
 		isRegistering = false;
 	}
-	function showRegister() {
-		isRegistering = true;
-	}
-	async function resetPassword() {
-		try {
-			const email = document.getElementById('loginForm').querySelector('input[name="email"]').value;
-			if (email) {
-				await firebase.auth().sendPasswordResetEmail(email);
-			}
-		} catch (ex) {}
-	}
+	// function showRegister() {
+	// 	isRegistering = true;
+	// }
+	// async function resetPassword() {
+	// 	try {
+	// 		const email = document.getElementById('loginForm').querySelector('input[name="email"]').value;
+	// 		if (email) {
+	// 			await firebase.auth().sendPasswordResetEmail(email);
+	// 		}
+	// 	} catch (ex) {}
+	// }
 
 	function handleClose(e) {
 		isRegistering = false;

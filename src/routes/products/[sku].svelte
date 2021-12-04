@@ -1,5 +1,5 @@
 <script context="module">
-	import loadProducts from '../../actions/loadProducts';
+	import loadProducts from '../../actions/loadProducts.js';
 	export const prerender = false;
 	let currentError = null;
 	export async function load(context) {
@@ -40,7 +40,7 @@
 
 <svelte:head>
 	<title>Vinaayak Collection - {item.title}</title>
-    <meta name="description" content={`view more details for ${item.title} on Vinaayak Collection`} />
+	<meta name="description" content={`view more details for ${item.title} on Vinaayak Collection`} />
 </svelte:head>
 
 <section class="productDetails">
@@ -59,7 +59,13 @@
 			{/each}
 		</section>
 		<section>
-			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]['400x560']} height="560" width="400" />
+			<img
+				class="mainImage"
+				alt={item.title}
+				src={item.images[selectedImageIndex]['400x560']}
+				height="560"
+				width="400"
+			/>
 		</section>
 		<section>
 			<div class="topSection">

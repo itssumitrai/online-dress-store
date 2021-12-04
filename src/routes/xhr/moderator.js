@@ -1,4 +1,4 @@
-import { getAuth } from '../../../firebaseUtil';
+import { getAuth } from '../../../firebaseUtil.js';
 
 export async function post({ query, body }) {
 	const email = body.get('email');

@@ -1,6 +1,5 @@
 <script>
 	let selectedIndex = 0;
-	export let onSelect;
 	export let colors = [];
 </script>
 

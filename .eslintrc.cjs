@@ -5,11 +5,11 @@ module.exports = {
 	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
 	parserOptions: {
 		sourceType: 'module',
-		ecmaVersion: 2019
+		ecmaVersion: 2021
 	},
 	env: {
 		browser: true,
-		es2017: true,
+		es2020: true,
 		node: true
 	}
 };

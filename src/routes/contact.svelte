@@ -16,7 +16,7 @@
 
 <svelte:head>
 	<title>Vinaayak Collection - Contact Us</title>
-    <meta name="description" content="contact page for Vinayak collection" />
+	<meta name="description" content="contact page for Vinayak collection" />
 </svelte:head>
 
 <div class="content">
@@ -25,5 +25,6 @@
 		You can contact us at <a href="mailto:">Contact</a>
 	</p>
 </div>
+
 <style>
 </style>

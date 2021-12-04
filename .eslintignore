@@ -1,0 +1,10 @@
+.gitignore
+node_modules
+build
+.husky
+.firebase
+/.svelte-kit
+functions/index.js
+functions/sveltekit/index.js
+serviceAccountKey.json
+*.log

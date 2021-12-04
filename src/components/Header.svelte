@@ -1,4 +1,5 @@
 <script>
+	/* global firebase */
 	import Navbar from './Navbar.svelte';
 	import { getStore } from '../store';
 	import LoginForm from './LoginForm.svelte';
