@@ -66,6 +66,7 @@ const getProcessedItem = async (item, bucket) => {
 
 export const get = async ({ query }) => {
 	const sku = query.get('sku');
+	const count = Math.min(query.get('count') || 20, 50);
 	const bucket = getStorage().bucket(); // for storage
 	let productsRef = getDatabase().collection('products');
 	if (sku) {
@@ -81,16 +82,20 @@ export const get = async ({ query }) => {
 			};
 		}
 		const snapshotItems = [];
+		let loopIndex = 0;
 		snapshot.forEach((doc) => {
-			snapshotItems.push(doc.data());
-			getProcessedItem(doc.data(), bucket).then((itemData) => {
-				finalData.push(itemData);
-			});
+			if (loopIndex < count) {
+				snapshotItems.push(doc.data());
+			}
+			loopIndex++;
 		});
-		const finalData = [];
-		for (let i = 0; i < snapshotItems.length; i++) {
-			finalData[i] = await getProcessedItem(snapshotItems[i], bucket);
+		const loopCount = Math.min(count, snapshotItems.length);
+		const processItemPromises = [];
+		for (let i = 0; i < loopCount; i++) {
+			processItemPromises.push(getProcessedItem(snapshotItems[i], bucket));
 		}
+		// Finally get all the data
+		const finalData = await Promise.all(processItemPromises);
 
 		return {
 			status: 200,
