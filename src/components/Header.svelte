@@ -33,7 +33,7 @@
 				<div class="photoContainer">
 					{#if profileData.photoURL}
 						<!-- svelte-ignore a11y-img-redundant-alt -->
-						<img src={profileData.photoURL} alt="profile picture" height="40" width="40"/>
+						<img src={profileData.photoURL} alt="profile picture" height="40" width="40" />
 					{/if}
 				</div>
 				<div class="displayName">{profileData.displayName || 'Test User'}</div>
@@ -54,25 +54,25 @@
 	header {
 		background-color: var(--nav-light);
 		display: flex;
-        align-items: center;
+		align-items: center;
 		padding: 0.5rem 1rem;
 	}
 	.profile {
 		position: relative;
 	}
-    .profile .photoContainer {
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        border: 1px solid var(--seperator);
-    }
+	.profile .photoContainer {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		border: 1px solid var(--seperator);
+	}
 	.profile img {
 		border-radius: 50%;
 	}
 	.profile .user {
 		display: flex;
 		gap: 0.5rem;
-        align-items: center;
+		align-items: center;
 		color: white;
 	}
 	.profile .displayName {
@@ -84,7 +84,7 @@
 		background-color: var(--link);
 		color: white;
 		border: 0;
-        font-size: 0.9rem;
+		font-size: 0.9rem;
 		border-radius: 3px;
 		font-weight: 500;
 		padding: 0.2em 0.8em;

@@ -3,11 +3,11 @@
 	export const prerender = false;
 	export async function load(context) {
 		const [allProducts] = await Promise.all([loadProducts(context, {})]);
-        const { meta, items } = allProducts;
+		const { meta, items } = allProducts;
 
 		return {
 			props: {
-                meta,
+				meta,
 				items
 			}
 		};
@@ -17,7 +17,7 @@
 <script>
 	import Products from '../components/Products.svelte';
 	export let items;
-    export let meta;
+	export let meta;
 </script>
 
 <svelte:head>
@@ -30,7 +30,7 @@
 
 <section>
 	<h1>All Products</h1>
-	<Products items={items} meta={meta} />
+	<Products {items} {meta} />
 </section>
 
 <style>

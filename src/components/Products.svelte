@@ -1,8 +1,8 @@
 <script>
 	import Product from './Product.svelte';
-    import Pagination from './Pagination.svelte';
+	import Pagination from './Pagination.svelte';
 	export let items;
-    export let meta;
+	export let meta;
 	export let title = '';
 	const lazyItems = 4;
 </script>
@@ -18,9 +18,9 @@
 			</li>
 		{/each}
 	</ul>
-    {#if meta}
-        <Pagination meta={meta}/>
-    {/if}
+	{#if meta}
+		<Pagination {meta} />
+	{/if}
 </section>
 
 <style>
