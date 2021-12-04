@@ -1,6 +1,6 @@
 <script>
 	import Navbar from './Navbar.svelte';
-	import { getStore } from '../store';
+	import { getStore, getState } from '../store';
 	import LoginForm from './LoginForm.svelte';
 
 	let isUserLoggedIn = false;

@@ -13,7 +13,8 @@ function createStore(initialState) {
 }
 
 const stores = {
-	auth: createStore({})
+	auth: createStore({}),
+	firebase: createStore({})
 };
 
 export const getStore = (key) => {

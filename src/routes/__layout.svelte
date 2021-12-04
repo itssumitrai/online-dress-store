@@ -3,8 +3,16 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { getStore } from '../store';
+    import { config } from '../../firebaseConfig';
+    import { initializeApp } from 'firebase/app';
+    import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 	onMount(() => {
-		firebase.auth().onAuthStateChanged((user) => {
+        const firebaseApp = initializeApp(config);
+        getStore('firebase').set({
+            app: firebaseApp
+        });
+		onAuthStateChanged(getAuth(firebaseApp), (user) => {
 			// custom claims for the user.
 			user?.getIdTokenResult().then((idTokenResult) => {
 				getStore('auth').set({
