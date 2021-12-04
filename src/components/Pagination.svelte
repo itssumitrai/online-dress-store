@@ -1,21 +1,30 @@
 <script>
 	export let meta = {};
+	const { count, offset, pageSize } = meta;
 </script>
 
 <section>
 	<ul>
 		<li>
-			<a class="item" href={`?c=${meta.count}&o=0`}>1</a>
+			<a class={`item ${offset === 0 ? 'disabled' : ''}`} href={`?c=${count}&o=0`}>1</a>
 		</li>
 		<li>
-			<a class="item" href={`?c=${meta.count}&o=${meta.offset - meta.count}`}>Prev</a>
+			<a class={`item ${offset <= 0 ? 'disabled' : ''}`} href={`?c=${count}&o=${offset - 1}`}
+				>Prev</a
+			>
 		</li>
-		<li class="item label">{(meta.count > 0 ? Math.ceil(meta.offset / meta.count) : 0) + 1}</li>
+		<li class="item label">{offset + 1}</li>
 		<li>
-			<a class="item" href={`?c=${meta.count}&o=${meta.offset + meta.count}`}>Next</a>
+			<a
+				class={`item ${offset + 1 >= pageSize - 1 ? 'disabled' : ''}`}
+				href={`?c=${count}&o=${offset + 1}`}>Next</a
+			>
 		</li>
 		<li>
-			<a class="item" href={`?c=${meta.count}&o=${meta.pageSize * meta.count}`}>Last</a>
+			<a
+				class={`item ${offset === pageSize - 1 ? 'disabled' : ''}`}
+				href={`?c=${count}&o=${pageSize}`}>Last</a
+			>
 		</li>
 	</ul>
 </section>
@@ -34,9 +43,17 @@
 		padding: 0.5rem;
 		display: inline-block;
 	}
+	a.item.disabled {
+		color: var(--text3);
+		pointer-events: none;
+		background-color: var(--surface4);
+		cursor: not-allowed;
+	}
 	.label {
 		font-weight: bold;
 		font-size: 1rem;
+		background-color: var(--link);
+		color: white;
 	}
 	a {
 		color: var(--link);
