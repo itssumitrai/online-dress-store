@@ -2,19 +2,22 @@
 	import loadProducts from '../actions/loadProducts.js';
 	export const prerender = false;
 	export async function load(context) {
-		const [allRes] = await Promise.allSettled([loadProducts(context, {})]);
+		const [allProducts] = await Promise.all([loadProducts(context, {})]);
+		const { meta, items } = allProducts;
 
 		return {
 			props: {
-				allItems: allRes.status === 'fulfilled' ? allRes.value : []
+				meta,
+				items
 			}
 		};
 	}
 </script>
 
 <script>
-	import AllProducts from '../components/Products.svelte';
-	export let allItems;
+	import Products from '../components/Products.svelte';
+	export let items;
+	export let meta;
 </script>
 
 <svelte:head>
@@ -27,7 +30,7 @@
 
 <section>
 	<h1>All Products</h1>
-	<AllProducts items={allItems} />
+	<Products {items} {meta} />
 </section>
 
 <style>
