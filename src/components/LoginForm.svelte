@@ -1,5 +1,5 @@
 <script>
-    /* global firebase */
+	/* global firebase */
 	export let onClose;
 	let hasLoginError = false;
 	let hasSignupError = false;

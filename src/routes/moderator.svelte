@@ -1,5 +1,5 @@
 <script context="module">
-    /* global firebase */
+	/* global firebase */
 	import { getStore } from '../store.js';
 	let idToken = '';
 	let hasError = false;

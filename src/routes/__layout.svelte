@@ -1,5 +1,5 @@
 <script>
-    /* global firebase */
+	/* global firebase */
 	import Header from '../components/Header.svelte';
 	import '../app.css';
 	import { onMount } from 'svelte';

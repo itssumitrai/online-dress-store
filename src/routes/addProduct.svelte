@@ -23,7 +23,7 @@
 </script>
 
 <script>
-    /* global firebase */
+	/* global firebase */
 	import ImgUpload from '../components/ImgUpload.svelte';
 	import { getStore } from '../store';
 	export let item = null;
