@@ -20,10 +20,15 @@ export default async function loadProducts(context, params = {}) {
 		{
 			method: 'GET'
 		}
-	).then((res) => {
-		if (!res.ok) {
-			return Promise.reject();
-		}
-		return res.json();
-	});
+	)
+		.then((res) => {
+			if (!res.ok) {
+				throw new Error(res.statusText || 'Could not load products');
+			}
+			return res.json();
+		})
+		.catch((err) => {
+			console.error(err);
+			return { meta: { count: 20, offset: 0, pageSize: 1 }, items: [] };
+		});
 }
