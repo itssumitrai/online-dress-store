@@ -24,11 +24,11 @@
 	ul {
 		list-style: none;
 		margin: 0;
-		padding: 0;
+		padding: 1rem;
 		display: flex;
-		justify-content: center;
-		margin-top: 1rem;
-		gap: 2rem;
+		justify-content: space-between;
+		max-width: 300px;
+		margin: auto;
 	}
 	.item {
 		padding: 0.5rem;
@@ -42,7 +42,7 @@
 		color: var(--link);
 		text-decoration: none;
 		border: 1px solid var(--seperator);
-		border-radius: 0.5rem;
+		border-radius: 0.8rem;
 		min-width: 30px;
 		text-align: center;
 	}

@@ -10,8 +10,6 @@
 			alt={item.title}
 			src={item.images[0]['250x350']}
 			loading={lazy ? 'lazy' : 'eager'}
-			height="350"
-			width="250"
 		/>
 	</div>
 	<div class="productDetail">
@@ -59,5 +57,19 @@
 	h3 {
 		margin-top: 0;
 		margin-bottom: 1rem;
+		word-wrap: normal;
+	}
+	@media (max-width: 450px) {
+		section {
+			max-width: 140px;
+		}
+		.imgContainer {
+			min-width: 140px;
+			min-height: 196px;
+		}
+		.imgContainer img {
+			width: 140px;
+			height: 196px;
+		}
 	}
 </style>

@@ -27,7 +27,7 @@
 	ul {
 		list-style: none;
 		display: flex;
-		justify-content: flex-start;
+		justify-content: space-evenly;
 		padding: 0;
 		margin: 0;
 		flex-wrap: wrap;
