@@ -1,5 +1,6 @@
 <script context="module">
-	import { getStore } from '../store';
+    /* global firebase */
+	import { getStore } from '../store.js';
 	let idToken = '';
 	let hasError = false;
 	getStore('auth').subscribe(async ({ user }) => {
@@ -29,9 +30,10 @@
 		}
 	}
 </script>
+
 <svelte:head>
 	<title>Vinaayak Collection - Add Moderator</title>
-    <meta name="robots" content="noindex" />
+	<meta name="robots" content="noindex" />
 </svelte:head>
 <section>
 	<h1>Add Moderator</h1>

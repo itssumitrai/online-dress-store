@@ -1,4 +1,4 @@
-import { popular } from './_mockData';
+import { popular } from './_mockData.js';
 
 export async function get({ query }) {
 	const value = query.get('value');

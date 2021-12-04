@@ -1,4 +1,4 @@
-import { getDatabase, getStorage } from '../../../firebaseUtil';
+import { getDatabase, getStorage } from '../../../firebaseUtil.js';
 
 const getProcessedItem = async (item, bucket) => {
 	const { images } = item;

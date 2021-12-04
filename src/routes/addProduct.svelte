@@ -1,5 +1,5 @@
 <script context="module">
-	import loadProducts from '../actions/loadProducts';
+	import loadProducts from '../actions/loadProducts.js';
 	export async function load(context) {
 		const { page } = context;
 		const { query } = page;
@@ -23,6 +23,7 @@
 </script>
 
 <script>
+    /* global firebase */
 	import ImgUpload from '../components/ImgUpload.svelte';
 	import { getStore } from '../store';
 	export let item = null;
@@ -130,9 +131,10 @@
 		}
 	}
 </script>
+
 <svelte:head>
 	<title>Vinaayak Collection - Add/Edit Product</title>
-    <meta name="robots" content="noindex" />
+	<meta name="robots" content="noindex" />
 </svelte:head>
 <section>
 	{#if isAdminUser}

@@ -1,8 +1,9 @@
 <script>
+    /* global firebase */
 	import Header from '../components/Header.svelte';
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { getStore } from '../store';
+	import { getStore } from '../store.js';
 	onMount(() => {
 		firebase.auth().onAuthStateChanged((user) => {
 			// custom claims for the user.
@@ -15,7 +16,7 @@
 			});
 		});
 	});
-    const year = new Date().getFullYear();
+	const year = new Date().getFullYear();
 </script>
 
 <Header />
