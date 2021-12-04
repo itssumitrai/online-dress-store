@@ -27,7 +27,7 @@
 		padding: 0;
 		display: flex;
 		justify-content: center;
-        margin-top: 1rem;
+		margin-top: 1rem;
 		gap: 2rem;
 	}
 	.item {
