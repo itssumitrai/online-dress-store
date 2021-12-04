@@ -21,6 +21,7 @@ jobs:
           name: 'serviceAccountKey.json'
           json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           dir: 'functions/sveltekit/'
+      - run: npm run lint
       - run: npm run test
       - run: echo "🔎 Deploying latest code to firebase"
       - uses: w9jds/firebase-action@master
