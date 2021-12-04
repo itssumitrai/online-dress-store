@@ -28,7 +28,7 @@
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.5.0",
 		"svelte": "^3.44.2",
-		"svelte-adapter-firebase": "^0.11.2"
+		"svelte-adapter-firebase": "^0.13.1"
 	},
 	"type": "module",
 	"dependencies": {
