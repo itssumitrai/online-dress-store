@@ -1,9 +1,22 @@
+<script context="module">
+	export async function load({ page }) {
+		const { query } = page;
+		const signInEnabled = query.get('signin') === '1';
+		return {
+			props: {
+				signInEnabled
+			}
+		};
+	}
+</script>
+
 <script>
 	/* global firebase */
 	import Header from '../components/Header.svelte';
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { getStore } from '../store.js';
+	export let signInEnabled = false;
 	onMount(() => {
 		firebase.auth().onAuthStateChanged((user) => {
 			// custom claims for the user.
@@ -19,7 +32,7 @@
 	const year = new Date().getFullYear();
 </script>
 
-<Header />
+<Header {signInEnabled} />
 <main>
 	<slot />
 </main>

@@ -85,9 +85,15 @@
 	{:else}
 		<h2>Log In</h2>
 		<form on:submit={onLogin} id="loginForm">
-			<label><span class="text">Email id:</span><input type="text" name="email" /></label>
-			<label><span class="text">Password:</span><input type="password" name="password" /></label>
-			<button type="submit">{isLoading ? 'Logging in...' : 'Login'}</button>
+			<label><span class="text">Email id:</span><input type="email" name="email" required /></label>
+			<label
+				><span class="text">Password:</span><input
+					type="password"
+					name="password"
+					required
+				/></label
+			>
+			<button class="submitBtn" type="submit">{isLoading ? 'Logging in...' : 'Login'}</button>
 		</form>
 		<!-- <button on:click={showRegister}>Create a new account</button> -->
 		<!-- <button on:click={resetPassword}>Reset password</button> -->
@@ -95,7 +101,21 @@
 			<p class="errorMsg">Some Error happened while logging in, please try again</p>
 		{/if}
 	{/if}
-	<button class="closeBtn" aria-label="Close" title="Close" on:click={handleClose}>X</button>
+	<button class="closeBtn" aria-label="Close" title="Close" on:click={handleClose}>
+		<svg
+			class="closeIcon"
+			width="16"
+			style="stroke-width:0;vertical-align:bottom;"
+			height="16"
+			viewBox="0 0 48 48"
+			data-icon="close"
+			data-reactid="50"
+			><path
+				d="M37.98 34.827l-9.9-9.9 9.9-9.898c.78-.782.78-2.05 0-2.83-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.898-9.9c-.78-.78-2.048-.78-2.828 0-.78.78-.78 2.047 0 2.828l9.9 9.9-9.9 9.898c-.78.78-.78 2.047 0 2.828.78.78 2.047.78 2.828 0l9.9-9.9 9.898 9.9c.78.78 2.048.78 2.828 0 .782-.78.782-2.047 0-2.827z"
+				data-reactid="51"
+			/></svg
+		>
+	</button>
 </section>
 
 <style>
@@ -117,10 +137,37 @@
 	}
 	.closeBtn {
 		position: absolute;
+		padding: 0.4em;
 		top: 0;
 		right: 0;
+		cursor: pointer;
+		background-color: var(--surface3);
+		color: var(--link);
+		border: 1px solid var(--seperator);
+		border-radius: 50%;
+	}
+	.submitBtn {
+		padding: 0.5em 1em;
+		font-weight: 500;
+		background-color: var(--link);
+		color: white;
+		cursor: pointer;
+		border-radius: 5px;
+		border: none;
+	}
+	.submitBtn:hover,
+	.submitBtn:focus {
+		background-color: var(--link-active);
+	}
+	.closeBtn:hover,
+	.closeBtn:focus {
+		background-color: var(--link-active);
 	}
 	.errorMsg {
 		color: var(--negative);
+	}
+	form input {
+		font-size: 0.9rem;
+		width: 25ch;
 	}
 </style>
