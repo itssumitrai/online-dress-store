@@ -11,8 +11,8 @@
 				}
 			};
 		}
-		const [itemRes] = await Promise.allSettled([loadProducts(context, { sku })]);
-		const item = itemRes.status === 'fulfilled' ? itemRes.value[0] : undefined;
+		const [product] = await Promise.all([loadProducts(context, { sku })]);
+		const item = product?.items?.[0];
 
 		return {
 			props: {

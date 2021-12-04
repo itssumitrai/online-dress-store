@@ -2,6 +2,7 @@ import { getDatabase, getStorage } from '../../../firebaseUtil.js';
 
 const getProcessedItem = async (item, bucket) => {
 	const { images } = item;
+	const imageSizes = ['80x112', '250x350', '400x560', '500x700', '800x1120'];
 	const imageFileNames = images.map(({ name }) => {
 		if (!name) {
 			return '';
@@ -9,55 +10,32 @@ const getProcessedItem = async (item, bucket) => {
 		const fileName = name.replace(/\.[^/.]+$/, '');
 		return fileName;
 	});
+	const signedUrlPromises = [];
 	for (let i = 0; i < imageFileNames.length; i++) {
 		if (!imageFileNames[i]) {
 			continue;
 		}
-		const resizedImages = await Promise.all([
-			bucket
-				.file(`resized/${imageFileNames[i]}_80x112.webp`)
-				.getSignedUrl({
-					action: 'read',
-					expires: '01-01-2050'
-				})
-				.then((data) => data[0]),
-			bucket
-				.file(`resized/${imageFileNames[i]}_250x350.webp`)
-				.getSignedUrl({
-					action: 'read',
-					expires: '01-01-2050'
-				})
-				.then((data) => data[0]),
-			bucket
-				.file(`resized/${imageFileNames[i]}_400x560.webp`)
-				.getSignedUrl({
-					action: 'read',
-					expires: '01-01-2050'
-				})
-				.then((data) => data[0]),
-			bucket
-				.file(`resized/${imageFileNames[i]}_500x700.webp`)
-				.getSignedUrl({
-					action: 'read',
-					expires: '01-01-2050'
-				})
-				.then((data) => data[0]),
-			bucket
-				.file(`resized/${imageFileNames[i]}_800x1120.webp`)
-				.getSignedUrl({
-					action: 'read',
-					expires: '01-01-2050'
-				})
-				.then((data) => data[0])
-		]);
-
-		item.images[i] = {
-			...item.images[i],
-			'80x112': resizedImages[0],
-			'250x350': resizedImages[1],
-			'400x560': resizedImages[2],
-			'500x700': resizedImages[3],
-			'800x1120': resizedImages[4]
+		imageSizes.forEach((size) => {
+			signedUrlPromises.push(
+				bucket
+					.file(`resized/${imageFileNames[i]}_${size}.webp`)
+					.getSignedUrl({
+						action: 'read',
+						expires: '01-01-2050'
+					})
+					.then((data) => data[0])
+			);
+		});
+	}
+	const signedUrls = await Promise.all(signedUrlPromises);
+	for (let i = 0, j = 0; i < signedUrls.length; i += imageSizes.length, j++) {
+		item.images[j] = {
+			...item.images[j],
+			'80x112': signedUrls[j],
+			'250x350': signedUrls[j + 1],
+			'400x560': signedUrls[j + 2],
+			'500x700': signedUrls[j + 3],
+			'800x1120': signedUrls[j + 4]
 		};
 	}
 
@@ -67,6 +45,7 @@ const getProcessedItem = async (item, bucket) => {
 export const get = async ({ query }) => {
 	const sku = query.get('sku');
 	const count = Math.min(query.get('count') || 20, 50);
+	const offset = Math.max(query.get('offset') || 0, 0);
 	const bucket = getStorage().bucket(); // for storage
 	let productsRef = getDatabase().collection('products');
 	if (sku) {
@@ -82,12 +61,14 @@ export const get = async ({ query }) => {
 			};
 		}
 		const snapshotItems = [];
-		let loopIndex = 0;
+		let snapshotCount = 0;
+		let itemCount = 0;
 		snapshot.forEach((doc) => {
-			if (loopIndex < count) {
+			if (itemCount < count && snapshotCount >= offset) {
 				snapshotItems.push(doc.data());
+				itemCount++;
 			}
-			loopIndex++;
+			snapshotCount++;
 		});
 		const loopCount = Math.min(count, snapshotItems.length);
 		const processItemPromises = [];
@@ -99,7 +80,14 @@ export const get = async ({ query }) => {
 
 		return {
 			status: 200,
-			body: finalData
+			body: {
+				meta: {
+					count,
+					offset,
+					pageSize: count > 0 ? Math.ceil(snapshotCount / count) : 0
+				},
+				items: finalData
+			}
 		};
 	} catch (ex) {
 		return {

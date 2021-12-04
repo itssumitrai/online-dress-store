@@ -17,9 +17,16 @@ export const handle = async ({ request, resolve }) => {
 		...response,
 		headers: {
 			...response.headers,
-			'X-Frame-Options': 'SAMEORIGIN',
-			'Referrer-Policy': 'no-referrer',
+			'Expect-CT': JSON.stringify({
+				'max-age': 31536000
+			}),
+			'Referrer-Policy': 'no-referrer-when-downgrade',
+			'Strict-Transport-Security': 'max-age=15552000',
 			'X-Content-Type-Options': 'nosniff',
+			'X-Download-Options': 'noopen',
+			'X-Frame-Options': 'SAMEORIGIN',
+			'X-Permitted-Cross-Domain-Policies': 'none',
+			'X-XSS-Protection': 0,
 			'Content-Security-Policy': CSP
 		}
 	};

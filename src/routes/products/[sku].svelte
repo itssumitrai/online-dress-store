@@ -5,8 +5,8 @@
 	export async function load(context) {
 		const { page } = context;
 		const { params } = page;
-		const [productRes] = await Promise.allSettled([loadProducts(context, { sku: params.sku })]);
-		const item = productRes.status === 'fulfilled' ? productRes.value[0] : null;
+		const [productRes] = await Promise.all([loadProducts(context, { sku: params.sku })]);
+		const item = productRes?.items?.[0];
 		if (!item) {
 			currentError = {
 				status: 404,
