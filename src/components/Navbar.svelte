@@ -1,13 +1,14 @@
 <script>
 	import { page } from '$app/stores';
 	export let isUserLoggedIn;
+	export let signInEnabled = false;
 	const navData = [
 		{
 			url: '/',
 			label: 'Home'
 		}
 	];
-	if (isUserLoggedIn) {
+	if (isUserLoggedIn && signInEnabled) {
 		navData.push({
 			url: '/addProduct',
 			label: 'Add Product'

@@ -4,6 +4,7 @@
 	import { getStore } from '../store';
 	import LoginForm from './LoginForm.svelte';
 
+	export let signInEnabled = false;
 	let isUserLoggedIn = false;
 	let showSignInModal = false;
 	let profileData = null;
@@ -26,9 +27,9 @@
 	<div class="corner">
 		<!-- Put Logo here -->
 	</div>
-	<Navbar {isUserLoggedIn} />
+	<Navbar {isUserLoggedIn} {signInEnabled} />
 	<div class="profile">
-		{#if isUserLoggedIn}
+		{#if isUserLoggedIn && signInEnabled}
 			<div class="user">
 				<div class="photoContainer">
 					{#if profileData.photoURL}
@@ -36,10 +37,10 @@
 						<img src={profileData.photoURL} alt="profile picture" height="40" width="40" />
 					{/if}
 				</div>
-				<div class="displayName">{profileData.displayName || 'Test User'}</div>
+				<div class="displayName">{profileData.displayName || 'Anonymous User'}</div>
 				<button class="logBtn" on:click={logout}>Sign out</button>
 			</div>
-		{:else}
+		{:else if signInEnabled}
 			<button class="logBtn" on:click={showSignIn}>Sign in</button>
 		{/if}
 	</div>
@@ -97,6 +98,8 @@
 		position: fixed;
 		width: 100%;
 		height: 100%;
+		left: 0;
+		top: 0;
 		display: none;
 		z-index: 50;
 		justify-content: center;
@@ -105,7 +108,7 @@
 	}
 	.modalContainer {
 		background-color: var(--surface3);
-		padding: 2rem;
+		padding: 1.5rem;
 	}
 	.modal.show {
 		display: flex;

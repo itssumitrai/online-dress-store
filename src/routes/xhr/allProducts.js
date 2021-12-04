@@ -44,8 +44,8 @@ const getProcessedItem = async (item, bucket) => {
 
 export const get = async ({ query }) => {
 	const sku = query.get('sku');
-	const count = Math.min(query.get('count') || 20, 50);
-	const offset = Math.max(query.get('offset') || 0, 0);
+	const count = Math.min(query.get('count') || 20, 50); // items per page
+	const offset = Math.max(query.get('offset') || 0, 0); // page number
 	const bucket = getStorage().bucket(); // for storage
 	let productsRef = getDatabase().collection('products');
 	if (sku) {
@@ -63,8 +63,9 @@ export const get = async ({ query }) => {
 		const snapshotItems = [];
 		let snapshotCount = 0;
 		let itemCount = 0;
+		const itemOffset = offset * count;
 		snapshot.forEach((doc) => {
-			if (itemCount < count && snapshotCount >= offset) {
+			if (itemCount < count && snapshotCount >= itemOffset) {
 				snapshotItems.push(doc.data());
 				itemCount++;
 			}
