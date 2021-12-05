@@ -1,7 +1,7 @@
-import { getHost } from '../lib/utils';
+// import { getHost } from '../lib/utils';
 
 export default async function loadProducts(context, params = {}) {
-	const { session, fetch, page } = context;
+	const { fetch, page } = context;
 	const ALLOWED_PARAMS = ['sku'];
 	const { query } = page;
 	const finalSearchParams = {};
@@ -13,14 +13,9 @@ export default async function loadProducts(context, params = {}) {
 	finalSearchParams.count = query.get('c') || 20; // count of items to load
 	finalSearchParams.offset = query.get('o') || 0; // start index of items to load
 
-	return fetch(
-		`${session.protocol}//${getHost(session)}/xhr/products?${new URLSearchParams(
-			finalSearchParams
-		).toString()}`,
-		{
-			method: 'GET'
-		}
-	)
+	return fetch(`/xhr/products?${new URLSearchParams(finalSearchParams).toString()}`, {
+		method: 'GET'
+	})
 		.then((res) => {
 			if (!res.ok) {
 				throw new Error(res.statusText || 'Could not load products');

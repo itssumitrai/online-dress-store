@@ -5,7 +5,8 @@ async function isAdminUser(body) {
 	if (!token) {
 		return false;
 	}
-	const currentUserClaim = await getAuth().verifyIdToken(token);
+	const auth = await getAuth();
+	const currentUserClaim = await auth.verifyIdToken(token);
 	if (!currentUserClaim.admin) {
 		// current user is not admin.
 		return false;
@@ -22,7 +23,8 @@ export async function post({ body }) {
 		};
 	}
 	const { item } = parsedBody;
-	const docRef = await getDatabase().collection('products').doc(item.sku);
+	const db = await getDatabase();
+	const docRef = await db.collection('products').doc(item.sku);
 	await docRef.set(item); // if sku is present, its overridden otherwise a new one is created (Edit/Add)
 	return {
 		status: 200,
@@ -39,7 +41,8 @@ export async function put({ body }) {
 		};
 	}
 	const { item } = parsedBody;
-	const docRef = await getDatabase().collection('products').doc(item.sku);
+	const db = await getDatabase();
+	const docRef = await db.collection('products').doc(item.sku);
 	await docRef.set(item); // if sku is present, its overridden otherwise a new one is created (Edit/Add)
 	return {
 		status: 200,
@@ -56,7 +59,8 @@ export async function del({ body }) {
 		};
 	}
 	const { sku } = parsedBody;
-	await getDatabase().collection('products').doc(sku).delete();
+	const db = await getDatabase();
+	await db.collection('products').doc(sku).delete();
 	return {
 		status: 200,
 		body: { sku, message: 'OK' }
