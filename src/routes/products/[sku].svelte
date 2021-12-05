@@ -59,10 +59,10 @@
 			{/each}
 		</section>
 		<section class="imageShow">
-			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]['400x560']} />
+			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]?.['400x560']} />
 		</section>
 		<section class="imageList">
-			{#each item.images as image, index}
+			{#each item.images as image}
 				<img class="mainImage" alt={item.title} src={image['400x560']} />
 			{/each}
 		</section>

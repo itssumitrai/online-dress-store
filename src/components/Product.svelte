@@ -5,12 +5,14 @@
 
 <section>
 	<div class="imgContainer">
-		<img
-			class="mainImage"
-			alt={item.title}
-			src={item.images[0]['250x350']}
-			loading={lazy ? 'lazy' : 'eager'}
-		/>
+		{#if item.images[0]}
+			<img
+				class="mainImage"
+				alt={item.title}
+				src={item.images[0]['250x350']}
+				loading={lazy ? 'lazy' : 'eager'}
+			/>
+		{/if}
 	</div>
 	<div class="productDetail">
 		<h4>{item.brand}</h4>
