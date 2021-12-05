@@ -14,7 +14,7 @@ export default async function loadProducts(context, params = {}) {
 	finalSearchParams.offset = query.get('o') || 0; // start index of items to load
 
 	return fetch(
-		`${session.protocol}//${getHost(session)}/xhr/allProducts?${new URLSearchParams(
+		`${session.protocol}//${getHost(session)}/xhr/products?${new URLSearchParams(
 			finalSearchParams
 		).toString()}`,
 		{
