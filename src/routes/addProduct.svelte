@@ -29,14 +29,23 @@
 	export let item = null;
 	let additionalImages = [];
 	let isAdminUser = false;
+	let idToken = '';
 	let isEditing = !!item?.sku;
 	let itemImages = item?.images || [];
 	if (!item) {
 		formReset();
 	}
 
-	getStore('auth').subscribe(({ isAdmin }) => {
+	getStore('auth').subscribe(async ({ isAdmin, user }) => {
 		isAdminUser = isAdmin;
+		if (!user) {
+			return;
+		}
+		try {
+			idToken = await user.getIdTokenResult();
+		} catch (ex) {
+			console.error(ex);
+		}
 	});
 
 	function addAdditionalImage() {
@@ -75,7 +84,6 @@
 	}
 	async function onSubmit(e) {
 		e.preventDefault();
-		const db = firebase.firestore();
 		try {
 			const formNode = e.currentTarget;
 			const formData = new FormData(formNode);
@@ -86,14 +94,22 @@
 				}
 			}
 			firebaseDoc.images = itemImages;
-			const docRef = await db.collection('products').doc(firebaseDoc.sku);
-			await docRef.set(firebaseDoc); // if sku is present, its overriden otherwise a new one is created (Edit/Add)
+			await fetch(`/xhr/editProduct`, {
+				method: isEditing ? 'PUT' : 'POST',
+				body: JSON.stringify({ item: firebaseDoc, token: idToken.token })
+			}).then((res) => {
+				if (!res.ok) {
+					throw new Error(res.statusText || `Could not add/edit product ${item.sku}`);
+				}
+				return res.json();
+			}); // if sku is present, its overriden otherwise a new one is created (Edit/Add)
 			alert(`Product ${isEditing ? 'edited' : 'added '} successfully!`);
 
 			// Reset the form
 			formReset();
 		} catch (ex) {
 			console.error(ex);
+			alert(ex);
 		}
 	}
 	async function onChange(e) {
@@ -117,16 +133,24 @@
 	}
 	async function onDelete() {
 		if (
-			window.confirm('Do you really want to delete this product ? This action cannot be undone.')
+			window.confirm('Do you really want to delete this product ? This action cannot be undone!')
 		) {
 			try {
 				// delete from database
-				const db = firebase.firestore();
-				await db.collection('products').doc(item.sku).delete();
+				await fetch(`/xhr/editProduct`, {
+					method: 'DELETE',
+					body: JSON.stringify({ sku: item.sku, token: idToken.token })
+				}).then((res) => {
+					if (!res.ok) {
+						throw new Error(res.statusText || `Could not delete product ${item.sku}`);
+					}
+					return res.json();
+				}); // if sku is present, its overriden otherwise a new one is created (Edit/Add)
 				alert(`Product deleted successfully!`);
 				formReset(true);
 			} catch (ex) {
 				console.error(ex);
+				alert(ex);
 			}
 		}
 	}

@@ -62,7 +62,7 @@
 			<img
 				class="mainImage"
 				alt={item.title}
-				src={item.images[selectedImageIndex]['400x560']}
+				src={item.images[selectedImageIndex]?.['400x560']}
 				height="560"
 				width="400"
 			/>
