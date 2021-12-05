@@ -27,9 +27,9 @@
 	<div class="corner">
 		<!-- Put Logo here -->
 	</div>
-	<Navbar {isUserLoggedIn} {signInEnabled} />
+	<Navbar {isUserLoggedIn} />
 	<div class="profile">
-		{#if isUserLoggedIn && signInEnabled}
+		{#if isUserLoggedIn}
 			<div class="user">
 				<div class="photoContainer">
 					{#if profileData.photoURL}
@@ -37,7 +37,7 @@
 						<img src={profileData.photoURL} alt="profile picture" height="40" width="40" />
 					{/if}
 				</div>
-				<div class="displayName">{profileData.displayName || 'Anonymous User'}</div>
+				<div class="displayName">{profileData.displayName || 'Anonymous'}</div>
 				<button class="logBtn" on:click={logout}>Sign out</button>
 			</div>
 		{:else if signInEnabled}
@@ -112,5 +112,10 @@
 	}
 	.modal.show {
 		display: flex;
+	}
+	@media (max-width: 450px) {
+		.displayName {
+			display: none;
+		}
 	}
 </style>

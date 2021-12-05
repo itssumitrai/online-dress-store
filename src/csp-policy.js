@@ -20,8 +20,9 @@ export const directives = {
 		rootDomain,
 		'https://*.gstatic.com',
 		'https://apis.google.com/js/api.js',
+		'https://apis.google.com/_/scs/apps-static/',
 		'https://*.googletagmanager.com',
 		'https://*.google-analytics.com/g/collect'
 	],
-	'frame-src': []
+	'frame-src': [rootDomain, 'https://dress-catalog.firebaseapp.com/']
 };
