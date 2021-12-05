@@ -19,6 +19,7 @@ export const directives = {
 		"'unsafe-inline'",
 		rootDomain,
 		'https://*.gstatic.com',
+		'https://apis.google.com/js/api.js',
 		'https://*.googletagmanager.com',
 		'https://*.google-analytics.com/g/collect'
 	],
