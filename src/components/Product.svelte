@@ -45,8 +45,9 @@
 		margin-top: 1rem;
 	}
 	.imgContainer {
+		background-color: lightgray;
 		min-width: 250px;
-		min-height: 350px;
+		min-height: 300px;
 	}
 	.productLink:hover,
 	.productLink:focus-visible {

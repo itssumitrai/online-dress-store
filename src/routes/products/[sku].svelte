@@ -58,16 +58,15 @@
 				</button>
 			{/each}
 		</section>
-		<section>
-			<img
-				class="mainImage"
-				alt={item.title}
-				src={item.images[selectedImageIndex]?.['400x560']}
-				height="560"
-				width="400"
-			/>
+		<section class="imageShow">
+			<img class="mainImage" alt={item.title} src={item.images[selectedImageIndex]?.['400x560']} />
 		</section>
-		<section>
+		<section class="imageList">
+			{#each item.images as image}
+				<img class="mainImage" alt={item.title} src={image['400x560']} />
+			{/each}
+		</section>
+		<section class="detailContainer">
 			<div class="topSection">
 				{#if isAdminUser}
 					<a class="editProductLink" href={`/addProduct?sku=${item.sku}`}>Edit Product</a>
@@ -137,9 +136,21 @@
 		flex-direction: column;
 		gap: 0.7rem;
 	}
+	.imageShow {
+		width: 400px;
+		background-color: lightgray;
+	}
 	.mainImage {
 		width: 100%;
 		min-height: 450px;
+	}
+	.imageList {
+		display: none;
+		justify-content: flex-start;
+		flex-flow: row nowrap;
+		scroll-snap-type: x mandatory;
+		gap: 5px;
+		overflow-x: auto;
 	}
 	.productDetails {
 		display: flex;
@@ -147,13 +158,19 @@
 		gap: 1rem;
 	}
 	.brand {
-		font-size: 1.1rem;
+		font-size: 1rem;
+		margin-top: 0.8rem;
+		margin-bottom: 0.4rem;
 	}
 	h1 {
-		font-size: 1.3rem;
+		font-size: 1.2rem;
+		margin-top: 0;
+		margin-bottom: 0.8rem;
 	}
 	h2 {
 		font-size: 1.15rem;
+		margin-top: 0.6rem;
+		margin-bottom: 0.6rem;
 	}
 	.sizeSelector {
 		margin-top: 1rem;
@@ -163,6 +180,9 @@
 		font-weight: bold;
 		font-size: 1.1rem;
 	}
+	.detailContainer {
+		max-width: calc(100% - 526px);
+	}
 	dt {
 		font-weight: 500;
 		font-size: 1rem;
@@ -170,4 +190,22 @@
 	/* select {
         cursor: pointer;
     } */
+	@media (max-width: 450px) {
+		.detailContainer {
+			max-width: initial;
+		}
+		.mainImage {
+			width: 250px;
+			min-height: initial;
+		}
+		.previewImgContainer,
+		.imageShow {
+			display: none;
+		}
+		.imageList {
+			display: flex;
+			background-color: lightgray;
+			min-height: 316px;
+		}
+	}
 </style>
