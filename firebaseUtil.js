@@ -17,7 +17,7 @@ function getCredential() {
 		if (dev) {
 			return resolve(admin.credential.applicationDefault());
 		}
-		import(path.join(path.resolve(), './serviceAccountKey.json'))
+		import(path.join(path.resolve(), './sveltekit/serviceAccountKey.json'))
 			.then(({ default: serviceAccountKey }) => resolve(admin.credential.cert(serviceAccountKey)))
 			.catch(reject);
 	});
