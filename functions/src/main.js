@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+process.env.GOOGLE_APPLICATION_CREDENTIALS = './serviceAccountKey.json';
 
 let sveltekitServer;
 export const sveltekit = functions.https.onRequest(async (request, response) => {

@@ -1,6 +1,6 @@
 import admin from 'firebase-admin';
-import { dev } from '$app/env';
-import * as path from 'path';
+// import { dev } from '$app/env';
+// import * as path from 'path';
 
 export const config = {
 	apiKey: 'AIzaSyA3nvUwcIbPuU1qxJ0U9HIDfUXkS0X0HHQ',
@@ -13,14 +13,15 @@ export const config = {
 };
 
 function getCredential() {
-	return new Promise((resolve, reject) => {
-		if (dev) {
-			return resolve(admin.credential.applicationDefault());
-		}
-		import(path.join(path.resolve(), './sveltekit/serviceAccountKey.json'))
-			.then(({ default: serviceAccountKey }) => resolve(admin.credential.cert(serviceAccountKey)))
-			.catch(reject);
-	});
+	// return new Promise((resolve, reject) => {
+	// 	if (dev) {
+	// 		return resolve(admin.credential.applicationDefault());
+	// 	}
+	// 	import(path.join(path.resolve(), './sveltekit/serviceAccountKey.json'))
+	// 		.then(({ default: serviceAccountKey }) => resolve(admin.credential.cert(serviceAccountKey)))
+	// 		.catch(reject);
+	// });
+	return new Promise((resolve) => resolve(admin.credential.applicationDefault()));
 }
 async function initializeApp() {
 	if (!admin.apps || admin.apps.length === 0) {
