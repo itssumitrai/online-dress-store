@@ -11,7 +11,8 @@ export async function post({ query, body }) {
 	}
 	try {
 		// First verify if current user is Admin
-		const currentUserClaim = getAuth().verifyIdToken(token);
+		const auth = await getAuth();
+		const currentUserClaim = await auth.verifyIdToken(token);
 		if (!currentUserClaim.admin) {
 			// current user is not admin.
 			return {
@@ -20,8 +21,8 @@ export async function post({ query, body }) {
 			};
 		}
 
-		const user = await getAuth().getUserByEmail(email);
-		await getAuth().setCustomUserClaims(user.uid, { admin: true });
+		const user = await auth.getUserByEmail(email);
+		await auth.setCustomUserClaims(user.uid, { admin: true });
 		return {
 			status: 200,
 			body: `Email ${email} has been set as Admin!`

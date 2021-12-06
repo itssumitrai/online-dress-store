@@ -46,8 +46,10 @@ export const get = async ({ query }) => {
 	const sku = query.get('sku');
 	const count = Math.min(query.get('count') || 20, 50); // items per page
 	const offset = Math.max(query.get('offset') || 0, 0); // page number
-	const bucket = getStorage().bucket(); // for storage
-	let productsRef = getDatabase().collection('products');
+	const storage = await getStorage();
+	const bucket = storage.bucket(); // for storage
+	const db = await getDatabase(); // for firestore
+	let productsRef = db.collection('products');
 	if (sku) {
 		productsRef = productsRef.where('sku', '==', sku);
 	}

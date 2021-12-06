@@ -1,6 +1,4 @@
 import admin from 'firebase-admin';
-import { dev } from '$app/env';
-import { join } from 'path';
 
 export const config = {
 	apiKey: 'AIzaSyA3nvUwcIbPuU1qxJ0U9HIDfUXkS0X0HHQ',
@@ -12,30 +10,37 @@ export const config = {
 	measurementId: 'G-GHYJBN5Y9Z'
 };
 
-function initializeApp() {
+function getCredential() {
+	return new Promise((resolve) => resolve(admin.credential.applicationDefault()));
+}
+async function initializeApp() {
 	if (!admin.apps || admin.apps.length === 0) {
-		let credential = admin.credential.applicationDefault();
-		if (!dev) {
-			credential = admin.credential.cert(require(join(__dirname, './serviceAccountKey.json')));
+		try {
+			const credential = await getCredential();
+			// Initialize the default app
+			admin.initializeApp({
+				...config,
+				credential
+			});
+		} catch (err) {
+			console.error(err);
+			return Promise.reject(new Error('Could not read service account key'));
 		}
-		admin.initializeApp({
-			...config,
-			credential
-		});
 	}
+	return Promise.resolve();
 }
 
-export const getDatabase = () => {
-	initializeApp();
+export const getDatabase = async () => {
+	await initializeApp();
 	return admin.firestore();
 };
 
-export const getStorage = () => {
-	initializeApp();
+export const getStorage = async () => {
+	await initializeApp();
 	return admin.storage();
 };
 
-export const getAuth = () => {
-	initializeApp();
+export const getAuth = async () => {
+	await initializeApp();
 	return admin.auth();
 };
