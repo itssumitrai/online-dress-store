@@ -24,10 +24,9 @@
 
 <script>
 	/* global firebase */
-	import ImgUpload from '../components/ImgUpload.svelte';
+	import ImgUploader from '../components/ImgUploader.svelte';
 	import { getStore } from '../store';
 	export let item = null;
-	let additionalImages = [];
 	let isAdminUser = false;
 	let idToken = '';
 	let isEditing = !!item?.sku;
@@ -48,9 +47,6 @@
 		}
 	});
 
-	function addAdditionalImage() {
-		additionalImages = [...additionalImages, true];
-	}
 	function formReset(forceReset = false) {
 		item =
 			isEditing && !forceReset
@@ -62,10 +58,10 @@
 						productUrl: '',
 						availability: 'In stock',
 						measurements: '',
-						size: '',
+						size: [],
 						color: '',
 						brand: 'TVC',
-						pattern: '',
+						pattern: 'Plain',
 						images: [],
 						price: 0,
 						taxCategory: 'Apparel',
@@ -76,7 +72,10 @@
 						gender: 'Female',
 						ageGroup: 'Adult',
 						material: 'Cotton',
-						productType: 'Casual Dress',
+						productType: 'Traditional',
+						sleeveLength: 'Long Sleeve',
+						length: 'Long',
+						fabric: 'No Stretch',
 						productCategory: 'Dresses',
 						stitchingType: 'Semi-Stitched'
 				  };
@@ -85,14 +84,7 @@
 	async function onSubmit(e) {
 		e.preventDefault();
 		try {
-			const formNode = e.currentTarget;
-			const formData = new FormData(formNode);
-			const firebaseDoc = {};
-			for (const pair of formData) {
-				if (typeof pair[1] !== 'object') {
-					firebaseDoc[pair[0]] = pair[1];
-				}
-			}
+			const firebaseDoc = { ...item };
 			firebaseDoc.images = itemImages;
 			await fetch(`/xhr/editProduct`, {
 				method: isEditing ? 'PUT' : 'POST',
@@ -185,6 +177,23 @@
 					/><i class="asterisk">*</i></label
 				>
 				<label
+					><span>Price:</span><input
+						type="number"
+						name="price"
+						step="0.01"
+						min="0"
+						required
+						bind:value={item.price}
+					/><i class="asterisk">*</i></label
+				>
+				<label
+					><span>Currency:</span><input
+						type="text"
+						name="currency"
+						bind:value={item.currency}
+					/></label
+				>
+				<label
 					><span>Product link:</span><input
 						type="url"
 						name="productUrl"
@@ -207,14 +216,20 @@
 						bind:value={item.color}
 					/></label
 				>
-				<ImgUpload index={0} image={itemImages[0]} />
-				{#each additionalImages as img, i}
-					<ImgUpload index={i + 1} image={itemImages[i]} />
-				{/each}
-				<button type="button" on:click={addAdditionalImage}>Add another image</button>
+				<ImgUploader images={itemImages} />
 			</fieldset>
 			<fieldset>
 				<h2>Details</h2>
+				<div class="multiInput">
+					<span>Sizes:</span>
+					<label>36<input type="checkbox" name="size" value="36" bind:group={item.size} /></label>
+					<label>38<input type="checkbox" name="size" value="38" bind:group={item.size} /></label>
+					<label>40<input type="checkbox" name="size" value="40" bind:group={item.size} /></label>
+					<label>42<input type="checkbox" name="size" value="42" bind:group={item.size} /></label>
+					<label>44<input type="checkbox" name="size" value="44" bind:group={item.size} /></label>
+					<label>46<input type="checkbox" name="size" value="46" bind:group={item.size} /></label>
+					<i class="asterisk">*</i>
+				</div>
 				<label
 					><span>Measurements:</span><input
 						type="text"
@@ -222,28 +237,34 @@
 						bind:value={item.measurements}
 					/></label
 				>
-				<label
-					><span>Product Category:</span><input
-						type="text"
-						name="productCategory"
-						bind:value={item.productCategory}
-					/></label
-				>
-				<label
-					><span>Product Type:</span><input
-						type="text"
-						name="productType"
-						bind:value={item.productType}
-					/></label
-				>
+				<label>
+					<span>Product Category:</span>
+					<select name="productCategory" bind:value={item.productCategory}>
+						<option>Dresses</option>
+					</select>
+				</label>
+				<label>
+					<span>Type:</span>
+					<select name="productType" bind:value={item.productType}>
+						<option>Traditional</option>
+						<option>Casual</option>
+						<option>Bodycon</option>
+						<option>A Line</option>
+						<option>Flare</option>
+					</select>
+				</label>
 				<label><span>Brand:</span><input type="text" name="brand" bind:value={item.brand} /></label>
-				<label
-					><span>Material:</span><input
-						type="text"
-						name="material"
-						bind:value={item.material}
-					/></label
-				>
+				<label>
+					<span>Material:</span>
+					<select name="material" bind:value={item.material}>
+						<option>Cotton</option>
+						<option>Silk</option>
+						<option>Semi Polyester</option>
+						<option>Polyester</option>
+						<option>Nylon</option>
+						<option>Velvet</option>
+					</select>
+				</label>
 				<label>
 					<span>Stiching Type:</span>
 					<select name="stitchingType" bind:value={item.stitchingType}>
@@ -252,22 +273,25 @@
 						<option>Stitched</option>
 					</select>
 				</label>
-				<label
-					><span>Pattern:</span><input
-						type="text"
-						name="pattern"
-						bind:value={item.pattern}
-					/></label
-				>
-				<label
-					><span>Size:</span><input
-						type="text"
-						name="size"
-						placeholder="38,40,42"
-						required
-						bind:value={item.size}
-					/><i class="asterisk">*</i></label
-				>
+				<label>
+					<span>Pattern:</span>
+					<select name="pattern" bind:value={item.pattern}>
+						<option>Plain</option>
+						<option>Decorative</option>
+						<option>Floral</option>
+						<option>All Over Print</option>
+						<option>Ditsy Floral</option>
+					</select>
+				</label>
+				<label>
+					<span>Sleeve Length:</span>
+					<select name="sleeveLength" bind:value={item.sleeveLength}>
+						<option>Long Sleeve</option>
+						<option>Short Sleeve</option>
+						<option>Sleeveless</option>
+					</select>
+				</label>
+
 				<label>
 					<span>Gender:</span>
 					<select name="gender" bind:value={item.gender}>
@@ -284,6 +308,14 @@
 						<option>Infant (3-12 mon)</option>
 						<option>Toddler (1-5)</option>
 						<option>Kids (5-13)</option>
+					</select>
+				</label>
+				<label>
+					<span>Fabric:</span>
+					<select name="fabric" bind:value={item.fabric}>
+						<option>No Stretch</option>
+						<option>Slight Stretch</option>
+						<option>Stretch</option>
 					</select>
 				</label>
 				<label
@@ -310,22 +342,6 @@
 			</fieldset>
 			<fieldset>
 				<h2>Availability</h2>
-				<label
-					><span>Price:</span><input
-						type="number"
-						name="price"
-						step="0.01"
-						required
-						bind:value={item.price}
-					/><i class="asterisk">*</i></label
-				>
-				<label
-					><span>Currency:</span><input
-						type="text"
-						name="currency"
-						bind:value={item.currency}
-					/></label
-				>
 				<label>
 					<span>Availability:</span>
 					<select name="availability" bind:value={item.availability}>
@@ -399,6 +415,11 @@
 	}
 	fieldset {
 		text-align: center;
+	}
+	.multiInput {
+		display: flex;
+		justify-content: center;
+		gap: 0.8rem;
 	}
 	button {
 		margin: 0.8rem auto;

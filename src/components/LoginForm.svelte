@@ -1,5 +1,6 @@
 <script>
 	/* global firebase */
+	import { dev } from '$app/env';
 	export let onClose;
 	let hasLoginError = false;
 	let hasSignupError = false;
@@ -41,17 +42,19 @@
 	function showLogin() {
 		isRegistering = false;
 	}
-	// function showRegister() {
-	// 	isRegistering = true;
-	// }
-	// async function resetPassword() {
-	// 	try {
-	// 		const email = document.getElementById('loginForm').querySelector('input[name="email"]').value;
-	// 		if (email) {
-	// 			await firebase.auth().sendPasswordResetEmail(email);
-	// 		}
-	// 	} catch (ex) {}
-	// }
+	function showRegister() {
+		isRegistering = true;
+	}
+	async function resetPassword() {
+		try {
+			const email = document.getElementById('loginForm').querySelector('input[name="email"]').value;
+			if (email) {
+				await firebase.auth().sendPasswordResetEmail(email);
+			}
+		} catch (ex) {
+			console.error(ex);
+		}
+	}
 
 	function handleClose(e) {
 		isRegistering = false;
@@ -66,19 +69,38 @@
 	{#if isRegistering}
 		<h2>Sign up new user</h2>
 		<form on:submit={onSignup}>
-			<label><span>First Name:</span><input type="text" name="firstName" required /></label>
-			<label><span>Last Name:</span><input type="text" name="lastName" required /></label>
-			<label><span>Phone:</span><input type="tel" name="phone" /></label>
-			<label><span>Profile image:</span><input type="url" name="photoURL" /></label>
-			<label><span>Email id:</span><input type="email" name="email" required /></label>
-			<label><span>Password:</span><input type="password" name="password" required /></label>
 			<label
-				><span>Confirm password:</span><input type="password" name="cpassword" required /></label
+				><span class="label">First Name:</span><input
+					type="text"
+					name="firstName"
+					required
+				/></label
 			>
-			<button type="submit">Sign up</button>
+			<label
+				><span class="label">Last Name:</span><input type="text" name="lastName" required /></label
+			>
+			<label><span class="label">Phone:</span><input type="tel" name="phone" /></label>
+			<label><span class="label">Profile image:</span><input type="url" name="photoURL" /></label>
+			<label><span class="label">Email id:</span><input type="email" name="email" required /></label
+			>
+			<label
+				><span class="label">Password:</span><input
+					type="password"
+					name="password"
+					required
+				/></label
+			>
+			<label
+				><span class="label">Confirm password:</span><input
+					type="password"
+					name="cpassword"
+					required
+				/></label
+			>
+			<button type="submit" class="primaryBtn">Sign up</button>
 		</form>
 		<p>By signing up, you agree to our terms & conditions.</p>
-		<button on:click={showLogin}>Login as existing user</button>
+		<button class="secondaryBtn" on:click={showLogin}>Login as existing user</button>
 		{#if hasSignupError}
 			<p class="errorMsg">Some Error happened while signin in, please try again</p>
 		{/if}
@@ -95,8 +117,10 @@
 			>
 			<button class="submitBtn" type="submit">{isLoading ? 'Logging in...' : 'Login'}</button>
 		</form>
-		<!-- <button on:click={showRegister}>Create a new account</button> -->
-		<!-- <button on:click={resetPassword}>Reset password</button> -->
+		{#if dev}
+			<button class="secondaryBtn" on:click={showRegister}>Create a new account</button>
+			<button class="secondaryBtn" on:click={resetPassword}>Reset password</button>
+		{/if}
 		{#if hasLoginError}
 			<p class="errorMsg">Some Error happened while logging in, please try again</p>
 		{/if}
@@ -127,6 +151,9 @@
 		display: flex;
 		justify-content: flex-start;
 		margin-bottom: 1rem;
+	}
+	.label {
+		margin-right: 0.5rem;
 	}
 	.text {
 		margin-right: 1rem;
@@ -169,5 +196,23 @@
 	form input {
 		font-size: 0.9rem;
 		width: 25ch;
+	}
+	.secondaryBtn {
+		background-color: var(--surface3);
+		color: var(--link);
+		font-weight: 500;
+		border: 1px solid var(--seperator);
+		border-radius: 5px;
+		padding: 0.5em 1em;
+		margin-top: 1rem;
+	}
+	.primaryBtn {
+		background-color: var(--link);
+		color: white;
+		font-weight: 500;
+		border: 1px solid var(--seperator);
+		border-radius: 5px;
+		padding: 0.5em 1em;
+		margin-top: 1rem;
 	}
 </style>

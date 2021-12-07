@@ -78,27 +78,49 @@
 				<div class="price">{item.currency}&nbsp;{item.price}</div>
 				<!-- <ColorSelector colors={item.color.split(',')} /> -->
 				<div class="sizeSelector">
-					<span>Size: {item.size.split(',').join(', ')}</span>
-					<!-- <select>
-                        {#each item.size.split(',') as size}
-                        <option value={size}>{size}</option>
-                        {/each}
-                    </select> -->
+					<span>Sizes:</span>
+					{#each item.size as size}
+						<span class="productSize">{size}</span>
+					{/each}
 				</div>
 				<h2>Product Details</h2>
 				<p class="desc">{item.description}</p>
-				<dl>
-					<dt>Material:</dt>
-					<dd>{item.material}</dd>
-					{#if item.stitchingType}
-						<dt>Stitching type:</dt>
-						<dd>{item.stitchingType}</dd>
-					{/if}
-					{#if item.measurements}
-						<dt>Measurements:</dt>
-						<dd>{item.measurements}</dd>
-					{/if}
-				</dl>
+				<table>
+					<tbody>
+						<tr>
+							<td>Material:</td>
+							<td>{item.material}</td>
+						</tr>
+						<tr>
+							<td>Pattern:</td>
+							<td>{item.pattern}</td>
+						</tr>
+						<tr>
+							<td>Type:</td>
+							<td>{item.productType}</td>
+						</tr>
+						<tr>
+							<td>Length:</td>
+							<td>{item.length || 'Long'}</td>
+						</tr>
+						<tr>
+							<td>Sleeve Length:</td>
+							<td>{item.sleeveLength || 'Long Sleeve'}</td>
+						</tr>
+						<tr>
+							<td>Stitching Type:</td>
+							<td>{item.stitchingType}</td>
+						</tr>
+						<tr>
+							<td>Fabric:</td>
+							<td>{item.fabric || 'No Stretch'}</td>
+						</tr>
+						<tr>
+							<td>Category:</td>
+							<td>{item.productCategory}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</section>
 	{/if}
@@ -173,19 +195,25 @@
 		margin-bottom: 0.6rem;
 	}
 	.sizeSelector {
-		margin-top: 1rem;
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
 	}
 	.price {
 		margin-bottom: 1.2rem;
 		font-weight: bold;
 		font-size: 1.1rem;
 	}
+	.productSize {
+		padding: 0.4rem 0.8rem;
+		border-radius: 5px;
+		border: 1px solid var(--seperator);
+	}
 	.detailContainer {
 		max-width: calc(100% - 526px);
 	}
-	dt {
-		font-weight: 500;
-		font-size: 1rem;
+	table td {
+		padding: 0.2rem 1rem;
 	}
 	/* select {
         cursor: pointer;

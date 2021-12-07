@@ -1,7 +1,7 @@
 const rootDomain = `https://*.vinaayakcollection.com`;
 
 export const directives = {
-	'img-src': ['*', "'self'", 'data:'],
+	'img-src': ['*', "'self'", 'data:', 'blob:'],
 	'font-src': ['*', "'self'", 'data:'],
 	'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
 	'default-src': [

@@ -3,6 +3,7 @@
 	import { getStore } from '../store.js';
 	let idToken = '';
 	let hasError = false;
+	let hasSuccess = false;
 	getStore('auth').subscribe(async ({ user }) => {
 		try {
 			idToken = await user.getIdTokenResult();
@@ -16,7 +17,7 @@
 			if (!idToken) {
 				throw new Error('user not signed in');
 			}
-			const resp = await fetch(`/xhr/moderator?token=${idToken}`, {
+			const resp = await fetch(`/xhr/moderator?token=${idToken.token}`, {
 				method: 'POST',
 				body: new URLSearchParams(new FormData(e.currentTarget))
 			});
@@ -25,6 +26,11 @@
 			}
 			// Force token refresh. The token claims will contain the additional claims.
 			firebase.auth().currentUser.getIdToken(true);
+			hasSuccess = true;
+			hasError = false;
+			setTimeout(() => {
+				hasSuccess = false;
+			}, 5000);
 		} catch (ex) {
 			hasError = true;
 		}
@@ -44,11 +50,18 @@
 	{#if hasError}
 		<p class="error">Only authorized moderators can add a moderator email.</p>
 	{/if}
+	{#if hasSuccess}
+		<p class="success">Moderator added successfully.</p>
+	{/if}
 </section>
 
 <style>
 	.error {
 		font-size: 1.2rem;
 		color: var(--negative);
+	}
+	.success {
+		font-size: 1.2rem;
+		color: var(--positive);
 	}
 </style>
