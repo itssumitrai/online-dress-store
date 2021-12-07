@@ -20,6 +20,11 @@
 	}
 	async function logout() {
 		await firebase.auth().signOut();
+		getStore('auth').set({
+			isLoggedIn: false,
+			isAdmin: false,
+			user: null
+		});
 	}
 </script>
 
@@ -27,7 +32,12 @@
 	<div class="corner">
 		<!-- Put Logo here -->
 	</div>
-	<Navbar {isUserLoggedIn} />
+	{#if isUserLoggedIn}
+		<Navbar isUserLoggedIn={true} />
+	{:else}
+		<Navbar isUserLoggedIn={false} />
+	{/if}
+
 	<div class="profile">
 		{#if isUserLoggedIn}
 			<div class="user">

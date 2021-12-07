@@ -4,29 +4,31 @@
 </script>
 
 <section>
-	<ul>
-		<li>
-			<a class={`item ${offset === 0 ? 'disabled' : ''}`} href={`?c=${count}&o=0`}>1</a>
-		</li>
-		<li>
-			<a class={`item ${offset <= 0 ? 'disabled' : ''}`} href={`?c=${count}&o=${offset - 1}`}
-				>Prev</a
-			>
-		</li>
-		<li class="item label">{offset + 1}</li>
-		<li>
-			<a
-				class={`item ${offset + 1 >= pageSize - 1 ? 'disabled' : ''}`}
-				href={`?c=${count}&o=${offset + 1}`}>Next</a
-			>
-		</li>
-		<li>
-			<a
-				class={`item ${offset === pageSize - 1 ? 'disabled' : ''}`}
-				href={`?c=${count}&o=${pageSize}`}>Last</a
-			>
-		</li>
-	</ul>
+	{#if pageSize > 1}
+		<ul>
+			<li>
+				<a class={`item ${offset === 0 ? 'disabled' : ''}`} href={`?c=${count}&o=0`}>1</a>
+			</li>
+			<li>
+				<a class={`item ${offset <= 0 ? 'disabled' : ''}`} href={`?c=${count}&o=${offset - 1}`}
+					>Prev</a
+				>
+			</li>
+			<li class="item label">{offset + 1}</li>
+			<li>
+				<a
+					class={`item ${offset + 1 >= pageSize - 1 ? 'disabled' : ''}`}
+					href={`?c=${count}&o=${offset + 1}`}>Next</a
+				>
+			</li>
+			<li>
+				<a
+					class={`item ${offset === pageSize - 1 ? 'disabled' : ''}`}
+					href={`?c=${count}&o=${pageSize}`}>Last</a
+				>
+			</li>
+		</ul>
+	{/if}
 </section>
 
 <style>

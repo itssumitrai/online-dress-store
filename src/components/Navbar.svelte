@@ -1,17 +1,20 @@
 <script>
 	import { page } from '$app/stores';
-	export let isUserLoggedIn;
-	const navData = [
+	export let isUserLoggedIn = false;
+	let navData = [
 		{
 			url: '/',
 			label: 'Home'
 		}
 	];
 	if (isUserLoggedIn) {
-		navData.push({
-			url: '/addProduct',
-			label: 'Add Product'
-		});
+		navData = [
+			...navData,
+			{
+				url: '/addProduct',
+				label: 'Add Product'
+			}
+		];
 	}
 </script>
 
