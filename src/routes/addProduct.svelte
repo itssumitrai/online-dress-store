@@ -25,6 +25,7 @@
 <script>
 	/* global firebase */
 	import ImgUploader from '../components/ImgUploader.svelte';
+	import { goto } from '$app/navigation';
 	import { getStore } from '../store';
 	export let item = null;
 	let isAdminUser = false;
@@ -60,7 +61,7 @@
 						measurements: '',
 						size: [],
 						color: '',
-						brand: 'TVC',
+						brand: '',
 						pattern: 'Plain',
 						images: [],
 						price: 0,
@@ -140,6 +141,8 @@
 				}); // if sku is present, its overriden otherwise a new one is created (Edit/Add)
 				alert(`Product deleted successfully!`);
 				formReset(true);
+				// Navigate to home page
+				goto('/');
 			} catch (ex) {
 				console.error(ex);
 				alert(ex);
@@ -163,18 +166,13 @@
 						class="asterisk">*</i
 					></label
 				>
-				<label
-					><span>Title:</span><input type="text" name="title" required bind:value={item.title} /><i
-						class="asterisk">*</i
-					></label
-				>
+				<label><span>Title:</span><input type="text" name="title" bind:value={item.title} /></label>
 				<label
 					><span>Description:</span><textarea
 						type="text"
 						name="description"
-						required
 						bind:value={item.description}
-					/><i class="asterisk">*</i></label
+					/></label
 				>
 				<label
 					><span>Price:</span><input

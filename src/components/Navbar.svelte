@@ -35,7 +35,7 @@
 		padding: 0;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.5rem;
+		gap: 2.5rem;
 		height: 100%;
 	}
 	li {
