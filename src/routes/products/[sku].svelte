@@ -103,10 +103,12 @@
 							<td>Length:</td>
 							<td>{item.length || 'Long'}</td>
 						</tr>
-						<tr>
-							<td>Sleeve Length:</td>
-							<td>{item.sleeveLength || 'Long Sleeve'}</td>
-						</tr>
+                        {#if item.sleeveLength !== 'N/A'}
+                            <tr>
+                                <td>Sleeve Length:</td>
+                                <td>{item.sleeveLength || 'Long Sleeve'}</td>
+                            </tr>
+                        {/if}
 						<tr>
 							<td>Stitching Type:</td>
 							<td>{item.stitchingType}</td>
