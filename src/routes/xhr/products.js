@@ -28,14 +28,17 @@ const getProcessedItem = async (item, bucket) => {
 		});
 	}
 	const signedUrls = await Promise.all(signedUrlPromises);
-	for (let i = 0, j = 0; i < signedUrls.length; i += imageSizes.length, j++) {
-		item.images[j] = {
-			...item.images[j],
-			'80x112': signedUrls[j],
-			'250x350': signedUrls[j + 1],
-			'400x560': signedUrls[j + 2],
-			'500x700': signedUrls[j + 3],
-			'800x1120': signedUrls[j + 4]
+	const imageLength = imageSizes.length;
+	const loopCounter = signedUrls.length / imageLength;
+	for (let i = 0; i < loopCounter; i++) {
+		const offset = imageLength * i;
+		item.images[i] = {
+			...item.images[i],
+			'80x112': signedUrls[offset],
+			'250x350': signedUrls[offset + 1],
+			'400x560': signedUrls[offset + 2],
+			'500x700': signedUrls[offset + 3],
+			'800x1120': signedUrls[offset + 4]
 		};
 	}
 

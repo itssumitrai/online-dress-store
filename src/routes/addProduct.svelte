@@ -100,8 +100,8 @@
 
 			// Reset the form
 			formReset();
-            // Navigate to prodcut page if editing
-		    isEditing && goto(`/products/${item.sku}`);
+			// Navigate to prodcut page if editing
+			isEditing && goto(`/products/${item.sku}`);
 		} catch (ex) {
 			console.error(ex);
 			alert(ex);
@@ -188,7 +188,7 @@
 				>
 				<label
 					><span>Currency:</span>
-                    <select name="currency" bind:value={item.currency}>
+					<select name="currency" bind:value={item.currency}>
 						<option value="₹">INR</option>
 						<option value="$">USD</option>
 						<option value="£">Pound</option>
@@ -243,7 +243,7 @@
 					<span>Product Category:</span>
 					<select name="productCategory" bind:value={item.productCategory}>
 						<option>Dresses</option>
-                        <option>Material</option>
+						<option>Material</option>
 					</select>
 				</label>
 				<label>
@@ -292,7 +292,7 @@
 						<option>Long Sleeve</option>
 						<option>Short Sleeve</option>
 						<option>Sleeveless</option>
-                        <option>N/A</option>
+						<option>N/A</option>
 					</select>
 				</label>
 
@@ -409,9 +409,9 @@
 		min-height: 200px;
 		min-width: 300px;
 	}
-    input[type="text"] {
-        min-width: 200px;
-    }
+	input[type='text'] {
+		min-width: 200px;
+	}
 	label {
 		display: flex;
 		justify-content: center;
