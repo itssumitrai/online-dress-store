@@ -1,8 +1,13 @@
 <script>
 	import ImgUpload from './ImgUpload.svelte';
 	export let images = [];
-	export let additionalImages = images === [] ? [] : [];
+	export let additionalImages = images.length === 0 ? [] : [];
 	export const onChange = Function.prototype;
+	images.forEach((image, index) => {
+		if (index > 0) {
+			additionalImages.push(true);
+		}
+	});
 	function addMoreImage() {
 		additionalImages = [...additionalImages, true];
 	}
