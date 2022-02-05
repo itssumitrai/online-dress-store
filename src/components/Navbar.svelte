@@ -21,7 +21,7 @@
 <nav>
 	<ul>
 		{#each navData as nav}
-			<li class:active={$page.path === nav.url}>
+			<li class:active={$page.url.pathname === nav.url}>
 				<a sveltekit:prefetch href={nav.url}>{nav.label}</a>
 			</li>
 		{/each}

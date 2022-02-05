@@ -1,7 +1,7 @@
 <script context="module">
-	export async function load({ page }) {
-		const { query } = page;
-		const signInEnabled = query.get('signin') === '1';
+	export async function load({ url }) {
+		const { searchParams } = url;
+		const signInEnabled = searchParams.get('signin') === '1';
 		return {
 			props: {
 				signInEnabled

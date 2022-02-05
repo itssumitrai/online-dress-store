@@ -14,8 +14,8 @@ async function isAdminUser(body) {
 	return true;
 }
 
-export async function post({ body }) {
-	const parsedBody = JSON.parse(body);
+export async function post({ request }) {
+	const parsedBody = await request.json();
 	if (!(await isAdminUser(parsedBody))) {
 		return {
 			status: 401,

@@ -2,21 +2,19 @@ import { reset } from './store';
 import { directives } from './csp-policy';
 import { dev } from '$app/env';
 
-const CSP = Object.entries(directives)
-	.map(([key, arr]) => key + ' ' + arr.join(' '))
-	.join('; ');
-
-export const handle = async ({ request, resolve }) => {
+export const handle = async ({ event, resolve }) => {
+	const { searchParams } = event;
 	// TODO https://github.com/sveltejs/kit/issues/1046
-	if (request.query.has('_method')) {
-		request.method = request.query.get('_method').toUpperCase();
+	if (searchParams?.has('_method')) {
+		event.request.method = searchParams.get('_method').toUpperCase();
 	}
 
-	const response = await resolve(request);
-	return {
-		...response,
-		headers: {
-			...response.headers,
+	const response = await resolve(event);
+	if (response.headers.get('content-type')?.startsWith('text/html')) {
+		const CSP = Object.entries(directives)
+			.map(([key, arr]) => key + ' ' + arr.join(' '))
+			.join('; ');
+		const headers = {
 			'Expect-CT': JSON.stringify({
 				'max-age': 31536000
 			}),
@@ -28,16 +26,20 @@ export const handle = async ({ request, resolve }) => {
 			'X-Permitted-Cross-Domain-Policies': 'none',
 			'X-XSS-Protection': 0,
 			'Content-Security-Policy': CSP
-		}
-	};
+		};
+		Object.keys(headers).forEach((headerKey) => {
+			response.headers.set(headerKey, headers[headerKey]);
+		});
+	}
+	return response;
 };
 
-export function getSession(request) {
+export function getSession(event) {
 	// reset store state
 	reset();
 
 	return {
-		host: request.host,
+		host: event.request.host,
 		protocol: dev ? 'http:' : 'https:'
 	};
 }
