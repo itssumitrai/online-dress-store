@@ -1,9 +1,9 @@
 <script context="module">
 	import loadProducts from '../actions/loadProducts.js';
 	export async function load(context) {
-		const { page } = context;
-		const { query } = page;
-		const sku = query.get('sku');
+		const { url } = context;
+		const { searchParams } = url;
+		const sku = searchParams.get('sku');
 		if (!sku) {
 			return {
 				props: {

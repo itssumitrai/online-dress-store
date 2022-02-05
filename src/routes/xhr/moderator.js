@@ -1,8 +1,10 @@
 import { getAuth } from '../../../firebaseUtil.js';
 
-export async function post({ query, body }) {
-	const email = body.get('email');
-	const token = query.get('token');
+export async function post({ url, request }) {
+	const { searchParams } = url;
+	const body = await request.json();
+	const { email } = body;
+	const token = searchParams.get('token');
 	if (!token) {
 		return {
 			status: 401,

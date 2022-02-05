@@ -3,8 +3,7 @@
 	export const prerender = false;
 	let currentError = null;
 	export async function load(context) {
-		const { page } = context;
-		const { params } = page;
+		const { params } = context;
 		const [productRes] = await Promise.all([loadProducts(context, { sku: params.sku })]);
 		const item = productRes?.items?.[0];
 		if (!item) {
