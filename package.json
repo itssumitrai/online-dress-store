@@ -27,7 +27,7 @@
 		"husky": "^7.0.0",
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.6.0",
-		"svelte": "^3.46.4",
+		"svelte": "^3.49.0",
 		"svelte-adapter-firebase": "^0.13.1"
 	},
 	"type": "module",
